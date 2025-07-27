@@ -1,4 +1,3 @@
-import NavBar from "@/components/NavBar";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Image from 'next/image';
 
