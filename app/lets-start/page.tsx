@@ -35,7 +35,7 @@ export default function page() {
                     bg-gradient-to-b from-[rgba(255,255,255,1)] 
                     to-[rgba(153,153,153,1)] bg-clip-text text-transparent
                     mb-10">
-                        Let's Start With Hawiyat
+                        Let&apos;s Start With Hawiyat
                     </h1>
 
                     {/* Buttons Block */}
