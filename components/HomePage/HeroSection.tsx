@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import Image from 'next/image'; // ✅ Import Next.js Image
 
 export default function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -43,10 +44,13 @@ export default function HeroSection() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Enhanced Glowing Ellipse with Load Animation */}
         <div className="absolute w-[3000px] bottom-0 right-[-500px] flex items-center justify-center">
-          <img 
-            src="/ellipse.svg" 
-            alt="" 
+          <Image
+            src="/ell.svg" // ✅ Must be inside /public
+            alt="Ellipse Background"
+            width={3000}
+            height={2000}
             className="w-full h-auto ellipse-load-animation"
+            priority // ✅ Recommended for above-the-fold images
           />
         </div>
 
