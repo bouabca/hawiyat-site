@@ -7,7 +7,6 @@ const light_width = 400;
 export default function Page() {
     return (
         <>
-            <NavBar />
             <div className="h-screen overflow-hidden w-screen flex flex-col justify-center items-center">
                 {/* The three tilted lights */}
                 <div className="z-[-1] fixed top-0 w-full flex justify-evenly items-start">

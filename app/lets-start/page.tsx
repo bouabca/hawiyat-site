@@ -9,7 +9,6 @@ export default function page() {
     return (
 
         <>
-            <NavBar />
             <div className="w-screen h-screen flex justify-around items-center">
                 <Image
                     className="fixed     top-0 z-[-1] w-full h-full"

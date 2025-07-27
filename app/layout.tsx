@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk } from 'next/font/google';
 // import { Poppins } from 'next/font/google';
 import "./globals.css";
+import NavBar from "@/components/NavBar";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -41,6 +42,7 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.className} overflow-hidden`}
       >
+        <NavBar/>
         {children}
       </body>
     </html>
