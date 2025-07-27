@@ -26,7 +26,7 @@ export default function Page() {
 
                 {/* Main Card Container */}
                 <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl z-10">
-                    
+
                     {/* Title - Responsive */}
                     <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-normal 
                         bg-gradient-to-b from-[rgba(255,255,255,1)] 
@@ -37,7 +37,7 @@ export default function Page() {
 
                     {/* Git Provider Buttons */}
                     <div className="flex flex-col justify-around items-center gap-y-3 sm:gap-y-4 mb-6 sm:mb-8">
-                        
+
                         <button
                             type="button"
                             className="w-full 
@@ -46,11 +46,14 @@ export default function Page() {
                                 text-black py-3 sm:py-4 px-4 font-medium rounded-[10px] 
                                 hover:cursor-pointer hover:shadow-lg hover:shadow-[#2BFFFF]/25
                                 active:scale-[0.98] transition-all duration-200
-                                flex justify-center sm:justify-start sm:pl-[20%] gap-x-3 items-center
+                                flex justify-center gap-x-3 items-center
                                 text-sm sm:text-base"
                         >
-                            <Github className="w-5 h-5 flex-shrink-0" />
-                            <span>Continue with GitHub</span>
+                            <p className="flex justify-evenly items-center gap-2">
+                                <Github className="w-5 h-5 flex-shrink-0" />
+                                <span>Continue with GitHub</span>
+
+                            </p>
                         </button>
 
                         <button
@@ -61,11 +64,14 @@ export default function Page() {
                                 text-white py-3 sm:py-4 px-4 font-medium rounded-[10px] 
                                 hover:cursor-pointer hover:shadow-lg hover:shadow-[#2BB5FF]/25
                                 active:scale-[0.98] transition-all duration-200
-                                flex justify-center sm:justify-start sm:pl-[20%] gap-x-3 items-center
+                                flex justify-center gap-x-3 items-center
                                 text-sm sm:text-base"
                         >
-                            <Gitlab className="w-5 h-5 flex-shrink-0" />
-                            <span>Continue with GitLab</span>
+                            <p className="flex  items-center gap-2">
+                                <Gitlab className="w-5 h-5 flex-shrink-0" />
+                                <span>Continue with GitHub</span>
+
+                            </p>
                         </button>
 
                         <button
@@ -76,11 +82,14 @@ export default function Page() {
                                 text-white py-3 sm:py-4 px-4 font-medium rounded-[10px] 
                                 hover:cursor-pointer hover:shadow-lg hover:shadow-[#37B9FF]/25
                                 active:scale-[0.98] transition-all duration-200
-                                flex justify-center sm:justify-start sm:pl-[20%] gap-x-3 items-center
+                                flex justify-center gap-x-3 items-center
                                 text-sm sm:text-base"
                         >
-                            <BitbucketIcon className="w-5 h-5 flex-shrink-0" />
-                            <span>Continue with Bitbucket</span>
+                            <p className="flex justify-evenly items-center gap-2">
+                                <BitbucketIcon className="w-5 h-5 flex-shrink-0" />
+                                <span>Continue with GitHub</span>
+
+                            </p>
                         </button>
                     </div>
 
@@ -89,8 +98,8 @@ export default function Page() {
 
                     {/* Enterprise Auth Buttons */}
                     <div className="flex flex-col justify-around items-center gap-y-3 sm:gap-y-4 mb-6 sm:mb-8">
-                        
-                        <button 
+
+                        <button
                             type="button"
                             className="w-full 
                                 bg-[#0A0A0A] hover:bg-[#151515]
@@ -102,8 +111,8 @@ export default function Page() {
                         >
                             Continue with SAML SSO
                         </button>
-                        
-                        <button 
+
+                        <button
                             type="button"
                             className="w-full 
                                 bg-[#0A0A0A] hover:bg-[#151515]
@@ -119,8 +128,8 @@ export default function Page() {
 
                     {/* Email Link */}
                     <div className="flex justify-center items-center">
-                        <Link 
-                            href="#" 
+                        <Link
+                            href="#"
                             className="inline-flex gap-x-2 text-white font-medium 
                                 hover:text-[#2BFFFF] transition-colors duration-200
                                 text-sm sm:text-base group"

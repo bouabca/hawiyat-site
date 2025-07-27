@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 export default function HawiyatLanding() {
@@ -11,7 +12,7 @@ export default function HawiyatLanding() {
         </div>
 
         <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-[size:60px_60px] opacity-100"></div>
-        
+
         {/* Floating Elements */}
         <div className="absolute top-20 left-20 w-4 h-4 bg-cyan-400/40 rounded-full animate-bounce"></div>
         <div className="absolute top-40 right-32 w-6 h-6 bg-teal-500/40 rounded-full animate-bounce delay-1000"></div>
@@ -55,12 +56,15 @@ export default function HawiyatLanding() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <button className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-base sm:text-lg font-medium bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 text-slate-900 rounded-lg shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center">
-              Get Started
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
+
+            <Link href="/lets-start">
+              <button className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-base sm:text-lg font-medium bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 text-slate-900 rounded-lg shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center">
+                Get Started
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </Link>
             <button className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-base sm:text-lg border-2 border-white/30 hover:border-white/50 text-white hover:bg-white/5 bg-transparent rounded-lg backdrop-blur-sm transition-all duration-300 hover:scale-105">
               Go to Support
             </button>
