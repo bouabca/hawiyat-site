@@ -10,7 +10,7 @@ export default function HeroSection() {
 
   useEffect(() => {
     setMounted(true);
-    const handleMouseMove = (e : any) => {
+    const handleMouseMove = (e : MouseEvent) => {
       setMousePosition({ 
         x: (e.clientX / window.innerWidth) * 100,
         y: (e.clientY / window.innerHeight) * 100
