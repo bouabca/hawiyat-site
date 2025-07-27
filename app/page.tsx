@@ -1,103 +1,72 @@
-import Image from "next/image";
+import React from 'react';
 
-export default function Home() {
+export default function HawiyatLanding() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Large Ellipse Background - Only bottom half visible */}
+        <div className="absolute -top-1/2 left-1/2 transform -translate-x-1/2">
+          <div className="w-[200vw] h-[200vh] border-4 border-cyan-400/20 rounded-full"></div>
+        </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-[size:60px_60px] opacity-100"></div>
+        
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-20 w-4 h-4 bg-cyan-400/40 rounded-full animate-bounce"></div>
+        <div className="absolute top-40 right-32 w-6 h-6 bg-teal-500/40 rounded-full animate-bounce delay-1000"></div>
+        <div className="absolute bottom-32 left-32 w-3 h-3 bg-emerald-500/40 rounded-full animate-bounce delay-2000"></div>
+
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.1)_1px,transparent_1px)] bg-[size:100px_100px] opacity-30"></div>
+      </div>
+
+      {/* Main Content */}
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-[90vh] px-6 text-center py-12">
+        <div className="max-w-6xl mx-auto space-y-12">
+          {/* Badge */}
+          <div className="inline-flex items-center px-6 py-3 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm">
+            <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            Bring your business to the best scale
+          </div>
+
+          {/* Main Heading */}
+          <div className="space-y-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+              <span className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent">
+                Hawiyat Platform
+              </span>
+              <br />
+              <div className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl mt-4 space-x-4">
+                <span className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent">Build</span>
+                <span className="bg-gradient-to-r from-white/80 to-white/70 bg-clip-text text-transparent">Deploy</span>
+                <span className="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent">
+                  Scale
+                </span>
+              </div>
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+              Hawiyat is the first AI-powered PaaS in the region that unifies DevOps, Cloud, Security and automation in
+              one seamless platform
+            </p>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+            <button className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-base sm:text-lg font-medium bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 text-slate-900 rounded-lg shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center">
+              Get Started
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
+            <button className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-base sm:text-lg border-2 border-white/30 hover:border-white/50 text-white hover:bg-white/5 bg-transparent rounded-lg backdrop-blur-sm transition-all duration-300 hover:scale-105">
+              Go to Support
+            </button>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }
