@@ -31,7 +31,7 @@ export default function Page() {
         <>
             <div className="min-h-screen">
                 {/* Mobile filter toggle button */}
-                <div className="lg:hidden fixed top-4 left-4 z-50">
+                <div className="lg:hidden fixed top-18 left-4 z-50">
                     <button
                         onClick={() => setShowFilters(!showFilters)}
                         className="bg-[#111] border border-[#333] rounded-lg p-3 flex items-center gap-2 text-sm font-medium hover:bg-[#1c1c1c] transition-colors"
