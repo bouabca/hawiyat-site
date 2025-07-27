@@ -38,7 +38,7 @@ export default function Page() {
                 {/* The grid mesh */}
                 <Image
                     className="absolute z-[0] top-0"
-                    src="/waitlist-grid-mesh.svg"
+                    src="/grid-mesh.svg"
                     width={2000}
                     height={2000}
                     alt="Grid mesh"
@@ -76,7 +76,7 @@ export default function Page() {
                     </button>
                 </div>
 
-                <div className="w-full flex flex-col justify-evenly items-center mb-28">
+                <div className="w-full flex flex-col justify-evenly items-center mb-28np">
                     <p className=" text-gray-300 mb-10">
                         By joining, you agree to our
                         <span className="text-white font-bold inline-flex items-center gap-x-1 ml-1">
