@@ -17,10 +17,10 @@ export default function NavBar() {
     };
 
     return (
-        <nav className="relative">
+        <nav className="absolute top-0 left-0 w-full z-50">
             <div className="flex justify-between lg:justify-around items-center h-16 sm:h-18 lg:h-20 
-                bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.05),transparent)] 
-                backdrop-blur-md px-4 sm:px-6 lg:px-8">
+                bg-white/5 backdrop-blur-lg border-b border-white/10
+                px-4 sm:px-6 lg:px-8">
 
                 {/* Logo block - Responsive */}
                 <Link 
@@ -102,7 +102,7 @@ export default function NavBar() {
             {/* Mobile menu */}
             <div className={`
                 lg:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw]
-                bg-black/95 backdrop-blur-xl border-l border-white/10
+                bg-black/20 backdrop-blur-xl border-l border-white/20
                 transform transition-transform duration-300 ease-in-out z-40
                 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
             `}>
@@ -164,12 +164,6 @@ export default function NavBar() {
                         </p>
                     </div>
                 </div>
-            </div>
-
-            {/* Bottom gradient line */}
-            <div className="absolute bottom-0 left-0 w-full h-[1px] 
-                bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.4),transparent)] 
-                pointer-events-none">
             </div>
         </nav>
     );
