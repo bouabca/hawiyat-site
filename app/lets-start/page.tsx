@@ -1,5 +1,4 @@
 import { BitbucketIcon } from "@/components/icons/BitBucket";
-import NavBar from "@/components/NavBar"
 import { ArrowRight, Github, Gitlab } from "lucide-react";
 import Image from 'next/image';
 import Link from "next/link";
@@ -9,7 +8,6 @@ export default function page() {
     return (
 
         <>
-            <NavBar />
             <div className="w-screen h-screen flex justify-around items-center">
                 <Image
                     className="fixed     top-0 z-[-1] w-full h-full"
