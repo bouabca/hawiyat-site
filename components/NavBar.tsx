@@ -68,7 +68,7 @@ export default function NavBar() {
 
                 {/* Desktop CTA Button */}
                 <Link 
-                    href="#" 
+                    href="/lets-start" 
                     className="hidden lg:block bg-[#2BFFFF] hover:bg-[#1CDDDD] 
                         py-2 px-4 xl:py-3 xl:px-6 rounded-[10px] text-black font-semibold 
                         transition-all duration-200 hover:shadow-lg hover:shadow-[#2BFFFF]/25
