@@ -8,9 +8,9 @@ export default function Page() {
     return (
         <>
             <NavBar />
-            <div className="h-screen w-screen flex flex-col justify-center items-center">
+            <div className="h-screen overflow-hidden w-screen flex flex-col justify-center items-center">
                 {/* The three tilted lights */}
-                <div className="z-[-1] absolute top-0 w-full flex justify-evenly items-start">
+                <div className="z-[-1] fixed top-0 w-full flex justify-evenly items-start">
 
                     <Image
                         src="/waitlist-lights/left-light.svg"
@@ -37,7 +37,7 @@ export default function Page() {
                 </div>
                 {/* The grid mesh */}
                 <Image
-                    className="absolute z-[0] top-0"
+                    className="fixed z-[0] top-0"
                     src="/grid-mesh.svg"
                     width={2000}
                     height={2000}
