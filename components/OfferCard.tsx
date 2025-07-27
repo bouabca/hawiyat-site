@@ -6,7 +6,7 @@ import { CircleCheck } from "lucide-react";
 
 export default function OfferCard() {
     return (
-        <Card className=" max-w-xs p-5 rounded-3xl
+        <Card className=" max-w-xs p-5 rounded-3xl m-auto
                 bg-gradient-to-tr from-[rgba(43,255,255,0.1)] via-[rgba(43,255,255,0.02)] to-[rgba(43,255,255,0.06)]">
             <CardTitle className="flex flex-col gap-y-5">
 
