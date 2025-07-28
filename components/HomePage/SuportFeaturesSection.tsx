@@ -123,9 +123,9 @@ export default function UnifiedSupportFeatures() {
   }
 
   return (
-    <div className="bg-black relative overflow-visible ">
+    <div className="bg-black relative overflow-hidden md:overflow-visible ">
       {/* Unified Background Elements */}
-      <div className="absolute inset-0 overflow-visible  pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden md:overflow-visible  pointer-events-none">
        
 
     
@@ -134,7 +134,7 @@ export default function UnifiedSupportFeatures() {
             <img
             src="/hawiyat-logo.svg"
             alt="Floating Logo"
-            className="absolute opacity-20 top-20 left-20 w-16 h-16"
+            className="absolute opacity-20 top-56 md:top-20 left-20 w-16 h-16"
             style={{
                 transform: ` translate(${getParallaxOffset(0.3)}px, ${getParallaxOffset(-0.2)}px) rotate(${scrollY * 0.5}deg)`,
             }}

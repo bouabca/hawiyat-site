@@ -112,7 +112,7 @@ export default function HeroSection() {
           {/* Main Heading with much larger mobile text */}
           <div className="space-y-6">
             <h1 
-              className="text-xl sm:text-5xl  md:text-6xl lg:text-7xl font-bold tracking-tight"
+              className=" text-5xl   md:text-6xl lg:text-7xl font-bold tracking-tight"
               style={{ animation: 'fade-in-up 1.2s ease-out 0.4s both' }}
             >
               <span 

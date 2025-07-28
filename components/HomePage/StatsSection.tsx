@@ -44,7 +44,7 @@ export default function StatsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="min-h-screen bg-transparent relative bottom-[100px] overflow-visible px-6">
+    <section ref={sectionRef} className="min-h-screen bg-transparent relative bottom-[100px] md:overflow-visible px-6">
       {/* Subtle Background Effects with Parallax - Now Fully Transparent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Removed background gradient overlay for full transparency */}
