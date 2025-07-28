@@ -90,7 +90,7 @@ export default function ExtraFeatures() {
                247 customer support
               </h3>
               <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
-              Share your work like it's already in
+              Share your work like its already in
                 production and test changes
                 without leaving the browser. Edit
                 content directly inside Preview
@@ -128,7 +128,7 @@ export default function ExtraFeatures() {
                 from anywhere in the organization.
                 Comment directly on copy and
                 designs as you review from your
-                user's point of view.
+                users point of view.
               </p>
             </div>
           </div>
