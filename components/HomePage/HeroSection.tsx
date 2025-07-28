@@ -135,9 +135,9 @@ export default function HeroSection() {
                   Deploy
                 </span>
                 <span 
-                  className="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent inline-block transition-transform duration-700 hover:scale-110"
+                  className="scale-word inline-block transition-transform duration-700 hover:scale-110"
                   style={{ 
-                    animation: 'fade-in-right 1s ease-out 1.2s both, gradient-shift 3s ease-in-out infinite'
+                    animation: 'fade-in-right 1s ease-out 1.2s both'
                   }}
                 >
                   Scale
@@ -226,6 +226,25 @@ export default function HeroSection() {
           }
         }
 
+        /* Simple, Smooth Scale Word Animation */
+        .scale-word {
+          background: linear-gradient(90deg, #22d3ee, #06b6d4, #0891b2, #10b981, #059669, #22d3ee);
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: smooth-flow 4s linear infinite;
+        }
+
+        @keyframes smooth-flow {
+          0% {
+            background-position: 0% 50%;
+          }
+          100% {
+            background-position: 200% 50%;
+          }
+        }
+
         /* Particle Glow Effect */
         .particle-glow {
           filter: blur(0.5px);
@@ -270,19 +289,6 @@ export default function HeroSection() {
           from { opacity: 0; transform: translateX(30px); }
           to { opacity: 1; transform: translateX(0); }
         }
-        
-        @keyframes gradient-shift {
-          0%, 100% { 
-            background: linear-gradient(to right, rgb(34, 211, 238), rgb(20, 184, 166), rgb(16, 185, 129));
-            -webkit-background-clip: text;
-            background-clip: text;
-          }
-          50% { 
-            background: linear-gradient(to right, rgb(6, 182, 212), rgb(14, 165, 233), rgb(34, 211, 238));
-            -webkit-background-clip: text;
-            background-clip: text;
-          }
-        }
 
         @keyframes ellipse-opacity-simple {
           from { opacity: 0; }
@@ -308,6 +314,13 @@ export default function HeroSection() {
         @media (prefers-reduced-motion: reduce) {
           .ellipse-opacity-animation {
             animation: ellipse-opacity-simple 2s ease-out 0.2s both;
+          }
+          
+          .scale-word {
+            background: linear-gradient(90deg, #22d3ee, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: none;
           }
         }
       `}</style>
