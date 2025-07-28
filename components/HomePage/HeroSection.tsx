@@ -32,14 +32,14 @@ export default function HeroSection() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-[90vh] bg-black flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bg-black relative overflow-hidden">
+    <section className="min-h-[90vh] bg-black relative overflow-hidden">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Enhanced Glowing Ellipse with Opacity Animation */}
@@ -100,7 +100,7 @@ export default function HeroSection() {
         <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
           {/* Enhanced Badge with better mobile sizing */}
           <div 
-            className="inline-flex text-sm md:text-xl mt-16 sm:mt-18 lg:mt-20 items-center px-6 py-3 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-cyan-400/20 hover:border-cyan-400/40"
+            className="inline-flex text-sm md:text-xl mt-16 sm:mt-18 lg:mt-24 items-center px-6 py-3 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-cyan-400/20 hover:border-cyan-400/40"
             style={{
               animation: 'fade-in-up 1s ease-out 0.2s both'
             }}
