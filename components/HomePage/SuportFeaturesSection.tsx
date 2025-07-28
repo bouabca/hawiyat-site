@@ -130,20 +130,25 @@ export default function UnifiedSupportFeatures() {
 
     
 
-        {/* Floating Elements */}
-        <div 
-          className="absolute top-20 left-20 w-16 h-16 border-2 border-cyan-400/40 rounded-full"
-          style={{
-            transform: `translate(${getParallaxOffset(0.3)}px, ${getParallaxOffset(-0.2)}px) rotate(${scrollY * 0.5}deg)`,
-          }}
-        />
-        
-        <div 
-          className="absolute top-32 right-32 w-12 h-12 border-2 border-teal-500/40"
-          style={{
-            transform: `translate(${getParallaxOffset(-0.2)}px, ${getParallaxOffset(0.3)}px) rotate(${45 + scrollY * -0.3}deg)`,
-          }}
-        />
+      {/* Floating Elements with Images */}
+            <img
+            src="/hawiyat-logo.svg"
+            alt="Floating Logo"
+            className="absolute opacity-20 top-20 left-20 w-16 h-16"
+            style={{
+                transform: ` translate(${getParallaxOffset(0.3)}px, ${getParallaxOffset(-0.2)}px) rotate(${scrollY * 0.5}deg)`,
+            }}
+            />
+
+            <img
+            src="/hawiyat-logo.svg"
+            alt="Floating Logo"
+            className="absolute opacity-20 top-32 right-32 w-12 h-12"
+            style={{
+                transform: `translate(${getParallaxOffset(-0.2)}px, ${getParallaxOffset(0.3)}px) rotate(${45 + scrollY * -0.3}deg)`,
+            }}
+            />
+
 
     
 
