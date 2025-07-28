@@ -59,7 +59,7 @@ export default function StatsSection() {
             ref={logoRef}
             className={`logo-container ${isVisible ? "logo-visible" : ""}`}
             style={{
-              transform: `translateY(${scrollY * -20}px) scale(${0.4 + scrollY * 1.2}) rotate(${-85 + scrollY * 90}deg)`
+              transform: `translateY(${scrollY * 100}px) scale(${0.4 + scrollY * 1}) rotate(${-85 + scrollY * 90}deg)`
             }}
           >
             <img

@@ -18,49 +18,49 @@ export default function NavBar() {
 
     return (
         <nav className="absolute top-0 left-0 w-full z-50">
-            <div className="flex justify-between lg:justify-around items-center h-16 sm:h-18 lg:h-20 
+            <div className="flex justify-between lg:justify-around items-center h-14 lg:h-16 
                 bg-white/5 backdrop-blur-lg border-b border-white/10
                 px-4 sm:px-6 lg:px-8">
 
                 {/* Logo block - Responsive */}
                 <Link 
                     href="/" 
-                    className="font-bold text-lg sm:text-xl lg:text-2xl flex items-center gap-2 sm:gap-3 font-poppins z-50 relative"
+                    className="font-bold text-lg lg:text-xl flex items-center gap-2 font-poppins z-50 relative"
                     onClick={closeMenu}
                 >
                     <Image
-                        src="/hawiyat-logo.svg"
-                        width={40}
-                        height={40}
+                        src="/logo.svg"
+                        width={32}
+                        height={32}
                         alt="Hawiyat Logo"
-                        className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12"
+                        className="w-7 h-7 lg:w-8 lg:h-8"
                     />                
                     <span className="text-white">Hawiyat</span>
                 </Link>
 
                 {/* Desktop menu - Hidden on mobile */}
-                <div className="hidden lg:flex justify-around items-center gap-x-8 xl:gap-x-12 text-white">
+                <div className="hidden lg:flex justify-around items-center gap-x-6 xl:gap-x-8 text-white">
                     <Link 
                         href="#" 
-                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium"
+                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
                         Products
                     </Link>
                     <Link 
                         href="#" 
-                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium"
+                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
                         Use Cases
                     </Link>
                     <Link 
                         href="#" 
-                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium"
+                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
                         Blog
                     </Link>
                     <Link 
                         href="#" 
-                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium"
+                        className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
                         About Us
                     </Link>
@@ -70,9 +70,9 @@ export default function NavBar() {
                 <Link 
                     href="/lets-start" 
                     className="hidden lg:block bg-[#2BFFFF] hover:bg-[#1CDDDD] 
-                        py-2 px-4 xl:py-3 xl:px-6 rounded-[10px] text-black font-semibold 
+                        py-2 px-4 rounded-2xl text-black font-semibold 
                         transition-all duration-200 hover:shadow-lg hover:shadow-[#2BFFFF]/25
-                        active:scale-95 text-sm xl:text-base"
+                        active:scale-95 text-sm" 
                 >
                     Get Started
                 </Link>
@@ -84,9 +84,9 @@ export default function NavBar() {
                     aria-label="Toggle menu"
                 >
                     {isMenuOpen ? (
-                        <X className="w-6 h-6" />
+                        <X className="w-5 h-5" />
                     ) : (
-                        <Menu className="w-6 h-6" />
+                        <Menu className="w-5 h-5" />
                     )}
                 </button>
             </div>
@@ -101,19 +101,19 @@ export default function NavBar() {
 
             {/* Mobile menu */}
             <div className={`
-                lg:hidden fixed top-0 right-0 h-full w-80 max-w-[85vw]
+                lg:hidden fixed top-0 right-0 h-full w-72 max-w-[80vw]
                 bg-black/20 backdrop-blur-xl border-l border-white/20
                 transform transition-transform duration-300 ease-in-out z-40
                 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}
             `}>
-                <div className="flex flex-col pt-24 pb-8 px-6">
+                <div className="flex flex-col pt-20 pb-6 px-6">
                     
                     {/* Mobile navigation links */}
-                    <div className="flex flex-col space-y-6 mb-8">
+                    <div className="flex flex-col space-y-4 mb-6">
                         <Link 
                             href="#" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
-                                font-medium text-lg py-2 border-b border-white/10"
+                                font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
                         >
                             Products
@@ -121,7 +121,7 @@ export default function NavBar() {
                         <Link 
                             href="#" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
-                                font-medium text-lg py-2 border-b border-white/10"
+                                font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
                         >
                             Use Cases
@@ -129,7 +129,7 @@ export default function NavBar() {
                         <Link 
                             href="#" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
-                                font-medium text-lg py-2 border-b border-white/10"
+                                font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
                         >
                             Blog
@@ -137,7 +137,7 @@ export default function NavBar() {
                         <Link 
                             href="#" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
-                                font-medium text-lg py-2 border-b border-white/10"
+                                font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
                         >
                             About Us
@@ -148,7 +148,7 @@ export default function NavBar() {
                     <Link 
                         href="#" 
                         className="bg-[#2BFFFF] hover:bg-[#1CDDDD] 
-                            py-3 px-6 rounded-[10px] text-black font-semibold 
+                            py-3 px-6 rounded-[50px] text-black font-semibold 
                             text-center transition-all duration-200 
                             hover:shadow-lg hover:shadow-[#2BFFFF]/25
                             active:scale-95"
@@ -158,8 +158,8 @@ export default function NavBar() {
                     </Link>
 
                     {/* Mobile menu footer */}
-                    <div className="mt-8 pt-6 border-t border-white/10">
-                        <p className="text-gray-400 text-sm text-center">
+                    <div className="mt-6 pt-4 border-t border-white/10">
+                        <p className="text-gray-400 text-xs text-center">
                             © 2025 Hawiyat. All rights reserved.
                         </p>
                     </div>

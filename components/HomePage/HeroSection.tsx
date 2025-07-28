@@ -100,7 +100,7 @@ export default function HeroSection() {
         <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
           {/* Enhanced Badge with better mobile sizing */}
           <div 
-            className="inline-flex text-sm md:text-xl mt-16 sm:mt-18 lg:mt-24 items-center px-6 py-3 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-cyan-400/20 hover:border-cyan-400/40"
+            className="inline-flex text-sm md:text-xl mt-16 sm:mt-18 lg:mt-24 mb-8 items-center px-5 py-2 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-cyan-400/20 hover:border-cyan-400/40"
             style={{
               animation: 'fade-in-up 1s ease-out 0.2s both'
             }}
@@ -112,7 +112,7 @@ export default function HeroSection() {
           {/* Main Heading with much larger mobile text */}
           <div className="space-y-6">
             <h1 
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight"
+              className="text-xl sm:text-5xl  md:text-6xl lg:text-7xl font-bold tracking-tight"
               style={{ animation: 'fade-in-up 1.2s ease-out 0.4s both' }}
             >
               <span 
@@ -121,7 +121,7 @@ export default function HeroSection() {
                 Hawiyat Platform
               </span>
               <br />
-              <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-4 space-x-2 sm:space-x-4">
+              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-4 space-x-2 sm:space-x-4">
                 <span 
                   className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent inline-block transition-transform duration-700 hover:scale-110"
                   style={{ animation: 'fade-in-left 1s ease-out 0.8s both' }}
