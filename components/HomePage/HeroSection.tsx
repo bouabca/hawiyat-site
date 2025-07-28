@@ -42,14 +42,20 @@ export default function HeroSection() {
     <section className="min-h-screen bg-black relative overflow-hidden">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Enhanced Glowing Ellipse with Load Animation */}
+        {/* Enhanced Glowing Ellipse with Opacity Animation */}
         <div className="absolute w-[3000px] bottom-0 right-[-500px] flex items-center justify-center">
           <Image
             src="/ell.svg" // ✅ Must be inside /public
             alt="Ellipse Background"
             width={3000}
             height={2000}
-            className="w-full h-auto ellipse-load-animation"
+            className="w-full h-auto"
+            style={{
+              opacity: 0,
+              transform: 'translateY(30px) scale(0.95)',
+              filter: 'drop-shadow(0 0 0px rgba(6,182,212,0))',
+              animation: 'ellipse-opacity-reveal 3s ease-out 0.2s both, ellipse-gentle-float 6s ease-in-out infinite 3.2s'
+            }}
             priority // ✅ Recommended for above-the-fold images
           />
         </div>
@@ -180,16 +186,44 @@ export default function HeroSection() {
 
       {/* Enhanced CSS Animations */}
       <style jsx>{`
-        /* Load-only Ellipse Animation */
-        .ellipse-load-animation {
-          opacity: 0;
-          transform: translateY(50px) scale(0.8);
-          filter: drop-shadow(0 0 0px rgba(6,182,212,0)) drop-shadow(0 0 0px rgba(6,182,212,0));
-          animation: ellipse-fade-in 2.5s ease-out 0.5s both, ellipse-float 8s ease-in-out infinite 3s;
+        /* Enhanced Ellipse Opacity Animation - Appears after all content loads */
+        @keyframes ellipse-opacity-reveal {
+          0% { 
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            filter: drop-shadow(0 0 0px rgba(6,182,212,0));
+          }
+          25% {
+            opacity: 0.3;
+            transform: translateY(15px) scale(0.97);
+            filter: drop-shadow(0 0 30px rgba(6,182,212,0.1));
+          }
+          50% {
+            opacity: 0.6;
+            transform: translateY(8px) scale(0.98);
+            filter: drop-shadow(0 0 60px rgba(6,182,212,0.2));
+          }
+          75% {
+            opacity: 0.85;
+            transform: translateY(3px) scale(0.99);
+            filter: drop-shadow(0 0 80px rgba(6,182,212,0.3));
+          }
+          100% { 
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+            filter: drop-shadow(0 0 100px rgba(6,182,212,0.4));
+          }
         }
 
-        .grid-load-animation img {
-          filter: brightness(1.2) contrast(1.1);
+        @keyframes ellipse-gentle-float {
+          0%, 100% { 
+            transform: translateY(0px) scale(1); 
+            filter: drop-shadow(0 0 100px rgba(6,182,212,0.4));
+          }
+          50% { 
+            transform: translateY(-8px) scale(1.01); 
+            filter: drop-shadow(0 0 120px rgba(6,182,212,0.5));
+          }
         }
 
         /* Particle Glow Effect */
@@ -207,56 +241,16 @@ export default function HeroSection() {
           animation: gradient-fade-in 1.5s ease-out 1.5s both;
         }
 
-        /* One-time Load Animations */
-        @keyframes ellipse-fade-in {
-          0% { 
-            opacity: 0;
-            transform: translateY(50px) scale(0.8);
-            filter: drop-shadow(0 0 0px rgba(6,182,212,0)) drop-shadow(0 0 0px rgba(6,182,212,0));
-          }
-          50% {
-            opacity: 0.5;
-            transform: translateY(20px) scale(0.9);
-            filter: drop-shadow(0 0 50px rgba(6,182,212,0.2)) drop-shadow(0 0 100px rgba(6,182,212,0.1));
-          }
-          100% { 
-            opacity: 0.8;
-            transform: translateY(0px) scale(1);
-            filter: drop-shadow(0 0 100px rgba(6,182,212,0.4)) drop-shadow(0 0 200px rgba(6,182,212,0.2));
-          }
-        }
-
-        @keyframes grid-fade-in {
-          0% { 
-            opacity: 0;
-            transform: scale(1.1);
-            filter: brightness(0) contrast(0);
-          }
-          30% {
-            opacity: 0.05;
-            transform: scale(1.05);
-            filter: brightness(0.5) contrast(0.5);
-          }
-          70% {
-            opacity: 0.1;
-            transform: scale(1.02);
-            filter: brightness(1) contrast(1);
-          }
-          100% { 
-            opacity: 0.15;
-            transform: scale(1);
-            filter: brightness(1.2) contrast(1.1);
-          }
+        @keyframes opacity-wave {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.8; }
         }
 
         @keyframes gradient-fade-in {
           0% { opacity: 0; }
           100% { opacity: 1; }
         }
-        @keyframes ellipse-float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-5px); }
-        }
+
         @keyframes float-particle {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-15px) rotate(180deg); }
@@ -290,25 +284,30 @@ export default function HeroSection() {
           }
         }
 
+        @keyframes ellipse-opacity-simple {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
         /* Responsive Enhancements */
         @media (max-width: 768px) {
-          .ellipse-load-animation {
-            animation-duration: 2s, 6s;
-          }
-          
-          .grid-load-animation {
-            animation-duration: 1.5s;
+          .ellipse-opacity-animation {
+            animation-duration: 2.5s, 5s;
+            animation-delay: 0.2s, 2.7s;
           }
         }
 
         /* High-end visual enhancements */
         @media (prefers-reduced-motion: no-preference) {
-          .ellipse-load-animation {
+          .ellipse-opacity-animation {
             will-change: transform, opacity, filter;
           }
-          
-          .grid-load-animation {
-            will-change: opacity, transform, filter;
+        }
+
+        /* Reduced motion accessibility */
+        @media (prefers-reduced-motion: reduce) {
+          .ellipse-opacity-animation {
+            animation: ellipse-opacity-simple 2s ease-out 0.2s both;
           }
         }
       `}</style>
