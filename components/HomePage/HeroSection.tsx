@@ -72,7 +72,7 @@ export default function HeroSection() {
         </div>
    
         {/* Enhanced Floating Elements with Opacity Waves */}
-        <div 
+        {/* <div 
           className="absolute top-20 left-20 w-4 h-4 bg-cyan-400/30 rounded-full particle-glow"
           style={{
             animation: 'float-particle 6s ease-in-out infinite, opacity-wave 4s ease-in-out infinite'
@@ -89,7 +89,7 @@ export default function HeroSection() {
           style={{
             animation: 'float-particle 7s ease-in-out infinite 2s, opacity-wave 6s ease-in-out infinite 2.5s'
           }}
-        />
+        /> */}
 
         {/* Dynamic Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 gradient-breathing" />
