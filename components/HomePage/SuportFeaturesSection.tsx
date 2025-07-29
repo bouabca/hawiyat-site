@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { ArrowRight, BarChart3, RefreshCw, Database, Code, Settings, Eye, Shield, Box, Bot } from 'lucide-react';
 import Image from 'next/image';
 export default function UnifiedSupportFeatures() {
@@ -130,24 +131,28 @@ export default function UnifiedSupportFeatures() {
 
     
 
-      {/* Floating Elements with Images */}
-            <img
-            src="/hawiyat-logo.svg"
-            alt="Floating Logo"
-            className="absolute opacity-20 top-56 md:top-20 left-20 w-16 h-16"
-            style={{
-                transform: ` translate(${getParallaxOffset(0.3)}px, ${getParallaxOffset(-0.2)}px) rotate(${scrollY * 0.5}deg)`,
-            }}
-            />
+      <Image
+        src="/hawiyat-logo.svg"
+        alt="Floating Logo"
+        width={64} // 16 * 4
+        height={64}
+        className="absolute opacity-20 top-56 md:top-20 left-20 w-16 h-16"
+        style={{
+            transform: `translate(${getParallaxOffset(0.3)}px, ${getParallaxOffset(-0.2)}px) rotate(${scrollY * 0.5}deg)`,
+        }}
+        />
 
-            <img
-            src="/hawiyat-logo.svg"
-            alt="Floating Logo"
-            className="absolute opacity-20 top-32 right-32 w-12 h-12"
-            style={{
-                transform: `translate(${getParallaxOffset(-0.2)}px, ${getParallaxOffset(0.3)}px) rotate(${45 + scrollY * -0.3}deg)`,
-            }}
-            />
+       
+        <Image
+        src="/hawiyat-logo.svg"
+        alt="Floating Logo"
+        width={48} // 12 * 4
+        height={48}
+        className="absolute opacity-20 top-32 right-32 w-12 h-12"
+        style={{
+            transform: `translate(${getParallaxOffset(-0.2)}px, ${getParallaxOffset(0.3)}px) rotate(${45 + scrollY * -0.3}deg)`,
+        }}
+        />
 
 
     
@@ -206,28 +211,38 @@ export default function UnifiedSupportFeatures() {
 
                     
              
-          <div 
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center transition-all duration-700 ease-out"
-            style={{
-              transform: supportVisible ? 'translateY(0px) scale(1)' : 'translateY(25px) scale(0.98)',
-              opacity: supportVisible ? 1 : 0,
-              transitionDelay: '0.4s'
-            }}
-          >
-            <button 
-              className="group w-full sm:w-auto h-14 px-10 text-lg font-medium bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 text-slate-900 rounded-2xl shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center relative overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center">
-                Get Started
-                <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-200 group-hover:translate-x-1" />
-              </span>
-            </button>
-            <button 
-              className="group w-full sm:w-auto h-14 px-10 text-lg border-2 border-white/30 hover:border-white/50 text-white hover:bg-white/5 bg-transparent backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-105"
-            >
-              Contact Support
-            </button>
-          </div>
+       
+
+<div 
+  className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center transition-all duration-700 ease-out"
+  style={{
+    transform: supportVisible ? 'translateY(0px) scale(1)' : 'translateY(25px) scale(0.98)',
+    opacity: supportVisible ? 1 : 0,
+    transitionDelay: '0.4s'
+  }}
+>
+  {/* Get Started Button */}
+  <Link href="/waitlist" className="w-full sm:w-auto">
+    <button 
+      className="group relative w-full sm:w-auto h-14 px-10 text-lg font-medium text-slate-900 bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 rounded-2xl shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center overflow-hidden"
+    >
+      <span className="relative z-10 flex items-center">
+        Get Started
+        <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+      </span>
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+    </button>
+  </Link>
+
+  {/* Contact Support Button */}
+  <Link href="/support" className="w-full sm:w-auto">
+    <button 
+      className="group w-full sm:w-auto h-14 px-10 text-lg border-2 border-white/30 hover:border-white/50 text-white hover:bg-white/5 bg-transparent backdrop-blur-sm rounded-2xl transition-all duration-300 hover:scale-105"
+    >
+      Contact Support
+    </button>
+  </Link>
+</div>
         </div>
       </section>
 
@@ -259,7 +274,7 @@ export default function UnifiedSupportFeatures() {
         className="relative overflow-hidden w-full z-10 py-20 px-4"
       >
             <div className="absolute z-[0] mx-auto top-0  h-full">
-          <img
+          <Image
             className="w-full h-full object-cover"
             src="/grid-mesh.svg"
             width={2000}

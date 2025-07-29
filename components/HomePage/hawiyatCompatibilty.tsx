@@ -53,7 +53,7 @@ export default function HawiyatCompatibility() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div  className="min-h-screen  bg-black text-white relative overflow-hidden">
       {/* Parallax background elements */}
       <div
         className="absolute inset-0 opacity-10"
@@ -187,7 +187,7 @@ export default function HawiyatCompatibility() {
             </div>
           </div>
           <div className="absolute z-[0] opacity-30 md:opacity-100 mx-auto mt-auto -bottom-[500px]  h-full">
-          <img
+          <Image
             className="w-full h-full object-cover"
             src="/grid-mesh.svg"
             width={2000}

@@ -84,6 +84,7 @@ export default function StatsComponent({ isVisible, scrollY }: StatsComponentPro
     <>
       {/* Stats Grid with Enhanced Parallax */}
       <div 
+    
         ref={statsRef}
         className="grid grid-cols-1   md:grid-cols-2 lg:grid-cols-4 gap-0 stats-container"
         style={{
@@ -93,6 +94,7 @@ export default function StatsComponent({ isVisible, scrollY }: StatsComponentPro
       >
         {stats.map((stat, index) => (
           <div
+            
             key={index}
             className={`stat-card ${cardVisibility[index] ? "stat-visible" : ""}`}
             style={{ 

@@ -73,8 +73,9 @@ export default function StatsSection() {
         {/* Stats Component */}
         <div className="relative top-[50px]">
         <StatsComponent isVisible={isVisible} scrollY={scrollY} />
+        <div  id="Features" className="relative top-[700px]"></div>
         </div>
-
+           
       </div>
 
       <style jsx>{`
