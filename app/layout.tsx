@@ -44,20 +44,20 @@ export const metadata: Metadata = {
     siteName: 'Hawiyat',
     images: [
       {
-        url: 'https://hawiyat.org/hawiyat-logo.svg',
+        url: 'https://hawiyat.org/hawiyat.png',
         width: 2000,
         height: 2000,
         alt: 'Hawiyat Platform',
       }
     ],
-    locale: 'en_US',
+    locale: 'en_DZ',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Hawiyat Deploy & Scale Your Apps',
     description: 'Your central hub for cloud deployments, serverless functions, and edge scaling.',
-    images: ['https://hawiyat.org/hawiyat-logo.svg'],
+    images: ['https://hawiyat.org/hawiyat.png'],
     creator: '@hawiyat',
   },
     alternates: {
