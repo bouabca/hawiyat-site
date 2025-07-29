@@ -111,14 +111,14 @@ export default function HeroSection() {
       <main className="relative z-10 flex flex-col items-center justify-center min-h-[90vh] px-6 text-center">
         <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
           {/* Enhanced Badge */}
-          <div className="badge-container">
+          <div className=" badge-container">
             <Sparkles className="w-4 h-4 mr-2 sparkle-spin" />
             {staticContent.badge}
           </div>
 
           {/* Main Heading */}
           <div className="space-y-6">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight main-title">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight main-title">
               <span className="title-gradient">
                 {staticContent.title}
               </span>
