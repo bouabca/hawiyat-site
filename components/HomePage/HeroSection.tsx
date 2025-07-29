@@ -93,7 +93,7 @@ export default function HeroSection() {
 
         {/* Enhanced Grid Mesh with Load Animation */}
         <div className="absolute z-[0] top-0 w-full h-full">
-          <img
+          <Image
             className="w-full h-full object-cover"
             src="/grid-mesh.svg"
             width={2000}
