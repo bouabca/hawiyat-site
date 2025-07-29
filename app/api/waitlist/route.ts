@@ -81,21 +81,12 @@ export async function POST(req: NextRequest) {
   } catch (error: unknown) {
     console.error('Waitlist signup error:', error);
 
-    if (
-      typeof error === 'object' &&
-      error !== null &&
-      'code' in error &&
-      typeof (error as any).code === 'string'
-    ) {
-      const err = error as { code: string };
-      if (err.code === 'P2002') {
-        return NextResponse.json(
-          { error: 'Email already exists in waitlist' },
-          { status: 409 }
-        );
-      }
-    }
-  
+    // if (error.code === 'P2002') {
+    //   return NextResponse.json(
+    //     { error: 'Email already exists in waitlist' },
+    //     { status: 409 }
+    //   );
+    // }
 
     return NextResponse.json(
       { error: 'Failed to join waitlist' },
