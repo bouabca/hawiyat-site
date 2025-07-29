@@ -27,7 +27,7 @@ export default function Page() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({})
   const [visibleCount, setVisibleCount] = useState(INITIAL_LOAD)
-  const [scrollY, setScrollY] = useState(0)
+  const [, setScrollY] = useState(0); // if you still use setScrollY
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   
   const containerRef = useRef<HTMLDivElement>(null)
@@ -292,14 +292,16 @@ export default function Page() {
   )
 }
 
-// Throttle function for smooth scroll performance
-function throttle(func: Function, limit: number) {
-  let inThrottle: boolean
-  return function(this: any, ...args: any[]) {
-    if (!inThrottle) {
-      func.apply(this, args)
-      inThrottle = true
-      setTimeout(() => inThrottle = false, limit)
-    }
+function throttle<T extends (...args: unknown[]) => void>(func: T, limit: number): T {
+    let inThrottle = false;
+    return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => {
+          inThrottle = false;
+        }, limit);
+      }
+    } as T;
   }
-}
+  

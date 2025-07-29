@@ -1,3 +1,4 @@
+// app/waitlist/page.tsx
 "use client"
 import { SquareArrowOutUpRight } from "lucide-react";
 import Image from 'next/image';
@@ -134,7 +135,7 @@ export default function Page() {
                                     {message}
                                     {position && !isError && (
                                         <div className="mt-1 text-cyan-400">
-                                            You're #{position} on the waitlist!
+                                            You are #{position} on the waitlist!
                                         </div>
                                     )}
                                 </div>
@@ -175,11 +176,6 @@ export default function Page() {
                                     <SquareArrowOutUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                                 </button>
                             </p>
-                        </div>
-                        
-                        {/* Divider */}
-                        <div className="flex items-center justify-center">
-                            <div className="w-20 sm:w-28 md:w-36 h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
                         </div>
                     </div>
                 </div>
