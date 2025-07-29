@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     siteName: 'Hawiyat',
     images: [
       {
-        url: 'https://hawiyat.org/og-image.png',
-        width: 1200,
-        height: 630,
+        url: 'https://hawiyat.org/hawiyat-logo.svg',
+        width: 512,
+        height: 512,
         alt: 'Hawiyat Platform',
       }
     ],
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hawiyat Deploy & Scale Your Apps',
     description: 'Your central hub for cloud deployments, serverless functions, and edge scaling.',
-    images: ['https://hawiyat.org/twitter-image.png'],
+    images: ['https://hawiyat.org/hawiyat-logo.svg'],
     creator: '@hawiyat',
   },
     alternates: {
