@@ -44,7 +44,7 @@ export default function StatsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="min-h-screen bg-transparent relative bottom-[150px] overflow-visible px-6">
+    <section ref={sectionRef} className="min-h-screen bg-transparent relative bottom-[100px] md:overflow-visible px-6">
       {/* Subtle Background Effects with Parallax - Now Fully Transparent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Removed background gradient overlay for full transparency */}
@@ -53,13 +53,13 @@ export default function StatsSection() {
       </div>
 
       <div className="max-w-7xl mx-auto">
-        {/* Logo Container with Scale Parallax */}
+        {/* Logo Container with Scale and Rotation Parallax */}
         <div className="flex justify-center mb-20">
           <div 
             ref={logoRef}
             className={`logo-container ${isVisible ? "logo-visible" : ""}`}
             style={{
-              transform: `translateY(${scrollY * -20}px) scale(${0.4 + scrollY * 1.2})`
+              transform: `translateY(${scrollY * 100}px) scale(${0.4 + scrollY * 1}) rotate(${-85 + scrollY * 90}deg)`
             }}
           >
             <img
@@ -71,20 +71,23 @@ export default function StatsSection() {
         </div>
 
         {/* Stats Component */}
+        <div className="relative top-[50px]">
         <StatsComponent isVisible={isVisible} scrollY={scrollY} />
+        </div>
+
       </div>
 
       <style jsx>{`
-        /* Logo Animations - Dramatic Scale Effect */
+        /* Logo Animations - Dramatic Scale and Rotation Effect */
         .logo-container {
           opacity: 0;
-          transform: translateY(60px) scale(0.3);
+          transform: translateY(60px) scale(0.3) rotate(-90deg);
           transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .logo-container.logo-visible {
           opacity: 1;
-          transform: translateY(0px) scale(0.4);
+          transform: translateY(0px) scale(0.4) rotate(-90deg);
         }
 
         .logo-image {

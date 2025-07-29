@@ -1,49 +1,111 @@
 import type { Metadata } from "next";
-// import { Geist, Geist_Mono } from "next/font/google";
 import { Space_Grotesk } from 'next/font/google';
-// import { Poppins } from 'next/font/google';
-import "./globals.css";
-import NavBar from "@/components/NavBar";
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-
-// const poppins = Poppins({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '600', '700'], // choose what you need
-//   variable: '--font-poppins', // optional: to use as CSS variable
-// });
+import NavBar from '@/components/NavBar';
+import './globals.css';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: [ '300', '400', '500', '600', '700'],
-  variable: '--font-space-grotesk', // Optional: Define a CSS variable
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-space-grotesk',
 });
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
-
 export const metadata: Metadata = {
-  title: "Hawiyat",
-  description: "All-in-One platform to deploy your applications on local cloud",
+  metadataBase: new URL('https://hawiyat.org'),
+  title: {
+    default: 'Hawiyat Deploy & Scale Your Apps',
+    template: '%s | Hawiyat',
+  },
+  description: 'Hawiyat is an all-in-one platform for developers to deploy, manage, and scale applications globally with serverless functions, managed databases, CI/CD, and edge networking.',
+  applicationName: 'Hawiyat Platform',
+  keywords: [
+    'Hawiyat', 'cloud deployment', 'serverless', 'CI/CD', 'edge network', 'managed databases', 'DevOps', 'web applications', 'global deployment', 'developer tools'
+  ],
+  authors: [
+    { name: 'Hawiyat Team', url: 'https://hawiyat.org' }
+  ],
+  creator: 'Hawiyat Team',
+  publisher: 'Hawiyat',
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
+  openGraph: {
+    title: 'Hawiyat Deploy & Scale Your Apps',
+    description: 'All-in-one platform for deploying, managing, and scaling web applications with global edge infrastructure.',
+    url: 'https://hawiyat.org',
+    siteName: 'Hawiyat',
+    images: [
+      {
+        url: 'https://hawiyat.org/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hawiyat Platform',
+      }
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hawiyat Deploy & Scale Your Apps',
+    description: 'Your central hub for cloud deployments, serverless functions, and edge scaling.',
+    images: ['https://hawiyat.org/twitter-image.png'],
+    creator: '@hawiyat',
+  },
+    alternates: {
+    canonical: 'https://hawiyat.org',
+    languages: {
+      'en-US': 'https://hawiyat.org',
+      'fr-DZ': 'https://hawiyat.org/fr'
+    }
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  icons: {
+    icon: '/logo.ico',
+    shortcut: '/logo.svg',
+    apple: '/logo.svg',
+  },
+  manifest: '/site.webmanifest',
+  other: {
+    // JSON-LD Organization Schema
+    'application/ld+json': JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Hawiyat",
+      "url": "https://hawiyat.org",
+      "logo": "https://hawiyat.org/logo.svg",
+      "sameAs": [
+        "https://twitter.com/hawiyat",
+        "https://github.com/Hawiyat-Corp"
+      ],
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+213-XX-XXX-XXXX",
+        "contactType": "Customer Support",
+        "areaServed": "DZ"
+      }]
+    })
+  },
+  viewport: 'width=device-width, initial-scale=1.0'
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${spaceGrotesk.className} overflow-auto`}
-      >
-        <NavBar/>
+      <body className={`${spaceGrotesk.className} overflow-auto`}>
+        <NavBar />
         {children}
       </body>
     </html>

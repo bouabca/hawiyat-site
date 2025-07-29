@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import Image from 'next/image'; // ✅ Import Next.js Image
 
 export default function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -10,7 +11,7 @@ export default function HeroSection() {
 
   useEffect(() => {
     setMounted(true);
-    const handleMouseMove = (e : any) => {
+    const handleMouseMove = (e : MouseEvent) => {
       setMousePosition({ 
         x: (e.clientX / window.innerWidth) * 100,
         y: (e.clientY / window.innerHeight) * 100
@@ -31,22 +32,31 @@ export default function HeroSection() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-[90vh] bg-black flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
       </div>
     );
   }
 
   return (
-    <section className="min-h-screen bg-black relative overflow-hidden">
+    <section className="min-h-[90vh] bg-black relative overflow-hidden">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Enhanced Glowing Ellipse with Load Animation */}
+        {/* Enhanced Glowing Ellipse with Opacity Animation */}
         <div className="absolute w-[3000px] bottom-0 right-[-500px] flex items-center justify-center">
-          <img 
-            src="/ellipse.svg" 
-            alt="" 
-            className="w-full h-auto ellipse-load-animation"
+          <Image
+            src="/ell.svg" // ✅ Must be inside /public
+            alt="Ellipse Background"
+            width={3000}
+            height={2000}
+            className="w-full h-auto"
+            style={{
+              opacity: 0,
+              transform: 'translateY(30px) scale(0.95)',
+              filter: 'drop-shadow(0 0 0px rgba(6,182,212,0))',
+              animation: 'ellipse-opacity-reveal 3s ease-out 0.2s both, ellipse-gentle-float 6s ease-in-out infinite 3.2s'
+            }}
+            priority // ✅ Recommended for above-the-fold images
           />
         </div>
 
@@ -62,7 +72,7 @@ export default function HeroSection() {
         </div>
    
         {/* Enhanced Floating Elements with Opacity Waves */}
-        <div 
+        {/* <div 
           className="absolute top-20 left-20 w-4 h-4 bg-cyan-400/30 rounded-full particle-glow"
           style={{
             animation: 'float-particle 6s ease-in-out infinite, opacity-wave 4s ease-in-out infinite'
@@ -79,7 +89,7 @@ export default function HeroSection() {
           style={{
             animation: 'float-particle 7s ease-in-out infinite 2s, opacity-wave 6s ease-in-out infinite 2.5s'
           }}
-        />
+        /> */}
 
         {/* Dynamic Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 gradient-breathing" />
@@ -90,7 +100,7 @@ export default function HeroSection() {
         <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
           {/* Enhanced Badge with better mobile sizing */}
           <div 
-            className="inline-flex text-sm md:text-xl mt-16 sm:mt-18 lg:mt-20 items-center px-6 py-3 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-cyan-400/20 hover:border-cyan-400/40"
+            className="inline-flex text-sm md:text-xl mt-16 sm:mt-18 lg:mt-24 mb-8 items-center px-5 py-2 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-cyan-400/20 hover:border-cyan-400/40"
             style={{
               animation: 'fade-in-up 1s ease-out 0.2s both'
             }}
@@ -102,7 +112,7 @@ export default function HeroSection() {
           {/* Main Heading with much larger mobile text */}
           <div className="space-y-6">
             <h1 
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight"
+              className=" text-5xl   md:text-6xl lg:text-7xl font-bold tracking-tight"
               style={{ animation: 'fade-in-up 1.2s ease-out 0.4s both' }}
             >
               <span 
@@ -111,7 +121,7 @@ export default function HeroSection() {
                 Hawiyat Platform
               </span>
               <br />
-              <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-4 space-x-2 sm:space-x-4">
+              <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-4 space-x-2 sm:space-x-4">
                 <span 
                   className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent inline-block transition-transform duration-700 hover:scale-110"
                   style={{ animation: 'fade-in-left 1s ease-out 0.8s both' }}
@@ -125,9 +135,9 @@ export default function HeroSection() {
                   Deploy
                 </span>
                 <span 
-                  className="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent inline-block transition-transform duration-700 hover:scale-110"
+                  className="scale-word inline-block transition-transform duration-700 hover:scale-110"
                   style={{ 
-                    animation: 'fade-in-right 1s ease-out 1.2s both, gradient-shift 3s ease-in-out infinite'
+                    animation: 'fade-in-right 1s ease-out 1.2s both'
                   }}
                 >
                   Scale
@@ -176,16 +186,63 @@ export default function HeroSection() {
 
       {/* Enhanced CSS Animations */}
       <style jsx>{`
-        /* Load-only Ellipse Animation */
-        .ellipse-load-animation {
-          opacity: 0;
-          transform: translateY(50px) scale(0.8);
-          filter: drop-shadow(0 0 0px rgba(6,182,212,0)) drop-shadow(0 0 0px rgba(6,182,212,0));
-          animation: ellipse-fade-in 2.5s ease-out 0.5s both, ellipse-float 8s ease-in-out infinite 3s;
+        /* Enhanced Ellipse Opacity Animation - Appears after all content loads */
+        @keyframes ellipse-opacity-reveal {
+          0% { 
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            filter: drop-shadow(0 0 0px rgba(6,182,212,0));
+          }
+          25% {
+            opacity: 0.3;
+            transform: translateY(15px) scale(0.97);
+            filter: drop-shadow(0 0 30px rgba(6,182,212,0.1));
+          }
+          50% {
+            opacity: 0.6;
+            transform: translateY(8px) scale(0.98);
+            filter: drop-shadow(0 0 60px rgba(6,182,212,0.2));
+          }
+          75% {
+            opacity: 0.85;
+            transform: translateY(3px) scale(0.99);
+            filter: drop-shadow(0 0 80px rgba(6,182,212,0.3));
+          }
+          100% { 
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+            filter: drop-shadow(0 0 100px rgba(6,182,212,0.4));
+          }
         }
 
-        .grid-load-animation img {
-          filter: brightness(1.2) contrast(1.1);
+        @keyframes ellipse-gentle-float {
+          0%, 100% { 
+            transform: translateY(0px) scale(1); 
+            filter: drop-shadow(0 0 100px rgba(6,182,212,0.4));
+          }
+          50% { 
+            transform: translateY(-8px) scale(1.01); 
+            filter: drop-shadow(0 0 120px rgba(6,182,212,0.5));
+          }
+        }
+
+        /* Simple, Smooth Scale Word Animation */
+        .scale-word {
+          background: linear-gradient(90deg, #22d3ee, #06b6d4, #0891b2, #10b981, #059669, #22d3ee);
+          background-size: 200% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: smooth-flow 4s linear infinite;
+        }
+
+        @keyframes smooth-flow {
+          0% {
+            background-position: 0% 50%;
+          }
+          100% {
+            background-position: 200% 50%;
+          }
         }
 
         /* Particle Glow Effect */
@@ -203,56 +260,16 @@ export default function HeroSection() {
           animation: gradient-fade-in 1.5s ease-out 1.5s both;
         }
 
-        /* One-time Load Animations */
-        @keyframes ellipse-fade-in {
-          0% { 
-            opacity: 0;
-            transform: translateY(50px) scale(0.8);
-            filter: drop-shadow(0 0 0px rgba(6,182,212,0)) drop-shadow(0 0 0px rgba(6,182,212,0));
-          }
-          50% {
-            opacity: 0.5;
-            transform: translateY(20px) scale(0.9);
-            filter: drop-shadow(0 0 50px rgba(6,182,212,0.2)) drop-shadow(0 0 100px rgba(6,182,212,0.1));
-          }
-          100% { 
-            opacity: 0.8;
-            transform: translateY(0px) scale(1);
-            filter: drop-shadow(0 0 100px rgba(6,182,212,0.4)) drop-shadow(0 0 200px rgba(6,182,212,0.2));
-          }
-        }
-
-        @keyframes grid-fade-in {
-          0% { 
-            opacity: 0;
-            transform: scale(1.1);
-            filter: brightness(0) contrast(0);
-          }
-          30% {
-            opacity: 0.05;
-            transform: scale(1.05);
-            filter: brightness(0.5) contrast(0.5);
-          }
-          70% {
-            opacity: 0.1;
-            transform: scale(1.02);
-            filter: brightness(1) contrast(1);
-          }
-          100% { 
-            opacity: 0.15;
-            transform: scale(1);
-            filter: brightness(1.2) contrast(1.1);
-          }
+        @keyframes opacity-wave {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.8; }
         }
 
         @keyframes gradient-fade-in {
           0% { opacity: 0; }
           100% { opacity: 1; }
         }
-        @keyframes ellipse-float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-5px); }
-        }
+
         @keyframes float-particle {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-15px) rotate(180deg); }
@@ -272,39 +289,38 @@ export default function HeroSection() {
           from { opacity: 0; transform: translateX(30px); }
           to { opacity: 1; transform: translateX(0); }
         }
-        
-        @keyframes gradient-shift {
-          0%, 100% { 
-            background: linear-gradient(to right, rgb(34, 211, 238), rgb(20, 184, 166), rgb(16, 185, 129));
-            -webkit-background-clip: text;
-            background-clip: text;
-          }
-          50% { 
-            background: linear-gradient(to right, rgb(6, 182, 212), rgb(14, 165, 233), rgb(34, 211, 238));
-            -webkit-background-clip: text;
-            background-clip: text;
-          }
+
+        @keyframes ellipse-opacity-simple {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         /* Responsive Enhancements */
         @media (max-width: 768px) {
-          .ellipse-load-animation {
-            animation-duration: 2s, 6s;
-          }
-          
-          .grid-load-animation {
-            animation-duration: 1.5s;
+          .ellipse-opacity-animation {
+            animation-duration: 2.5s, 5s;
+            animation-delay: 0.2s, 2.7s;
           }
         }
 
         /* High-end visual enhancements */
         @media (prefers-reduced-motion: no-preference) {
-          .ellipse-load-animation {
+          .ellipse-opacity-animation {
             will-change: transform, opacity, filter;
           }
+        }
+
+        /* Reduced motion accessibility */
+        @media (prefers-reduced-motion: reduce) {
+          .ellipse-opacity-animation {
+            animation: ellipse-opacity-simple 2s ease-out 0.2s both;
+          }
           
-          .grid-load-animation {
-            will-change: opacity, transform, filter;
+          .scale-word {
+            background: linear-gradient(90deg, #22d3ee, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: none;
           }
         }
       `}</style>

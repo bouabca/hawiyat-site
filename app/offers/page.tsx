@@ -29,7 +29,7 @@ export default function Page() {
 
     return (
         <>
-            <div className="min-h-screen">
+            <div className="min-h-screen mt-24">
                 {/* Mobile filter toggle button */}
                 <div className="lg:hidden fixed top-18 left-4 z-50">
                     <button
