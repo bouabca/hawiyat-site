@@ -80,19 +80,9 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: unknown) {
     console.error('Waitlist signup error:', error);
-
-    // if (error.code === 'P2002') {
-    //   return NextResponse.json(
-    //     { error: 'Email already exists in waitlist' },
-    //     { status: 409 }
-    //   );
-    // }
-
     return NextResponse.json(
       { error: 'Failed to join waitlist' },
       { status: 500 }
     );
   }
 }
-
-export { WaitlistSchema };
