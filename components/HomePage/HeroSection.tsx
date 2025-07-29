@@ -1,41 +1,77 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import Image from 'next/image'; // ✅ Import Next.js Image
+import Image from 'next/image';
 import Link from 'next/link';
+
 export default function HeroSection() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
+  
+  // Memoize static content to prevent unnecessary re-renders
+  const staticContent = useMemo(() => ({
+    badge: "Bring your business to the best scale",
+    title: "Hawiyat Platform",
+    subtitle: ["Build", "Deploy", "Scale"],
+    description: "Hawiyat is the first AI-powered PaaS in the region that unifies DevOps, Cloud, Security and automation in one seamless platform"
+  }), []);
 
   useEffect(() => {
     setMounted(true);
-    const handleMouseMove = (e : MouseEvent) => {
-      setMousePosition({ 
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100
-      });
+    
+    // Use passive listeners for better performance
+    const handleMouseMove = (e) => {
+      // Use CSS custom properties for smooth hardware-accelerated animations
+      document.documentElement.style.setProperty('--mouse-x', `${(e.clientX / window.innerWidth) * 100}%`);
+      document.documentElement.style.setProperty('--mouse-y', `${(e.clientY / window.innerHeight) * 100}%`);
     };
 
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      // Use CSS custom property for scroll-based effects
+      document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
+    // Use passive listeners and throttle for performance
+    let ticking = false;
+    const throttledMouseMove = (e) => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleMouseMove(e);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    let scrollTicking = false;
+    const throttledScroll = () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    };
+
+    window.addEventListener('mousemove', throttledMouseMove, { passive: true });
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+    
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', throttledMouseMove);
+      window.removeEventListener('scroll', throttledScroll);
     };
   }, []);
 
+  // Memoize loading component
+  const loadingComponent = useMemo(() => (
+    <div className="min-h-[90vh] bg-black flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
+    </div>
+  ), []);
+
   if (!mounted) {
-    return (
-      <div className="min-h-[90vh] bg-black flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
-      </div>
-    );
+    return loadingComponent;
   }
 
   return (
@@ -45,22 +81,17 @@ export default function HeroSection() {
         {/* Enhanced Glowing Ellipse with Opacity Animation */}
         <div className="absolute w-[3000px] bottom-0 right-[-500px] flex items-center justify-center">
           <Image
-            src="/ell.svg" // ✅ Must be inside /public
+            src="/ell.svg"
             alt="Ellipse Background"
             width={3000}
             height={2000}
-            className="w-full h-auto"
-            style={{
-              opacity: 0,
-              transform: 'translateY(30px) scale(0.95)',
-              filter: 'drop-shadow(0 0 0px rgba(6,182,212,0))',
-              animation: 'ellipse-opacity-reveal 3s ease-out 0.2s both, ellipse-gentle-float 6s ease-in-out infinite 3.2s'
-            }}
-            priority // ✅ Recommended for above-the-fold images
+            className="w-full h-auto ellipse-optimized"
+            priority
+            loading="eager"
           />
         </div>
 
-        {/* Enhanced Grid Mesh with Load Animation - Changed from fixed to absolute */}
+        {/* Enhanced Grid Mesh with Load Animation */}
         <div className="absolute z-[0] top-0 w-full h-full">
           <img
             className="w-full h-full object-cover"
@@ -68,198 +99,330 @@ export default function HeroSection() {
             width={2000}
             height={2000}
             alt="Grid mesh"
+            loading="eager"
           />
         </div>
-   
-        {/* Enhanced Floating Elements with Opacity Waves */}
-        {/* <div 
-          className="absolute top-20 left-20 w-4 h-4 bg-cyan-400/30 rounded-full particle-glow"
-          style={{
-            animation: 'float-particle 6s ease-in-out infinite, opacity-wave 4s ease-in-out infinite'
-          }}
-        />
-        <div 
-          className="absolute top-40 right-32 w-6 h-6 bg-teal-500/30 rounded-full particle-glow"
-          style={{
-            animation: 'float-particle 8s ease-in-out infinite 1s, opacity-wave 5s ease-in-out infinite 1.5s'
-          }}
-        />
-        <div 
-          className="absolute bottom-32 left-32 w-3 h-3 bg-emerald-500/30 rounded-full particle-glow"
-          style={{
-            animation: 'float-particle 7s ease-in-out infinite 2s, opacity-wave 6s ease-in-out infinite 2.5s'
-          }}
-        /> */}
 
         {/* Dynamic Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 gradient-breathing" />
       </div>
 
       {/* Main Content */}
-      <main className="relative z-10 flex flex-col items-center justify-center min-h-[90vh] px-6 text-center ">
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-[90vh] px-6 text-center">
         <div className="max-w-6xl mx-auto space-y-8 md:space-y-12">
-          {/* Enhanced Badge with better mobile sizing */}
-          <div 
-            className="inline-flex text-sm md:text-xl mt-16 sm:mt-18 lg:mt-24 mb-8 items-center px-5 py-2 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 backdrop-blur-sm transition-all duration-500 hover:scale-105 hover:bg-cyan-400/20 hover:border-cyan-400/40"
-            style={{
-              animation: 'fade-in-up 1s ease-out 0.2s both'
-            }}
-          >
-            <Sparkles className="w-4 h-4 mr-2 animate-spin" style={{ animationDuration: '3s' }} />
-            Bring your business to the best scale
+          {/* Enhanced Badge */}
+          <div className="badge-container">
+            <Sparkles className="w-4 h-4 mr-2 sparkle-spin" />
+            {staticContent.badge}
           </div>
 
-          {/* Main Heading with much larger mobile text */}
+          {/* Main Heading */}
           <div className="space-y-6">
-            <h1 
-              className=" text-5xl   md:text-6xl lg:text-7xl font-bold tracking-tight"
-              style={{ animation: 'fade-in-up 1.2s ease-out 0.4s both' }}
-            >
-              <span 
-                className="bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent transition-all duration-1000"
-              >
-                Hawiyat Platform
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight main-title">
+              <span className="title-gradient">
+                {staticContent.title}
               </span>
               <br />
               <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-4 space-x-2 sm:space-x-4">
-                <span 
-                  className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent inline-block transition-transform duration-700 hover:scale-110"
-                  style={{ animation: 'fade-in-left 1s ease-out 0.8s both' }}
-                >
-                  Build
+                <span className="subtitle-word subtitle-build">
+                  {staticContent.subtitle[0]}
                 </span>
-                <span 
-                  className="bg-gradient-to-r from-white/80 to-white/70 bg-clip-text text-transparent inline-block transition-transform duration-700 hover:scale-110"
-                  style={{ animation: 'fade-in-up 1s ease-out 1s both' }}
-                >
-                  Deploy
+                <span className="subtitle-word subtitle-deploy">
+                  {staticContent.subtitle[1]}
                 </span>
-                <span 
-                  className="scale-word inline-block transition-transform duration-700 hover:scale-110"
-                  style={{ 
-                    animation: 'fade-in-right 1s ease-out 1.2s both'
-                  }}
-                >
-                  Scale
+                <span className="subtitle-word scale-word">
+                  {staticContent.subtitle[2]}
                 </span>
               </div>
             </h1>
-            <p 
-              className="text-xl sm:text-2xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed transition-all duration-1000 hover:text-white/90"
-              style={{ animation: 'fade-in-up 1s ease-out 1.4s both' }}
-            >
-              Hawiyat is the first AI-powered PaaS in the region that unifies DevOps, Cloud, Security and automation in
-              one seamless platform
+            <p className="description-text">
+              {staticContent.description}
             </p>
           </div>
 
-          {/* CTA Buttons with larger mobile text */}
-          <div 
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center"
-            style={{ animation: 'fade-in-up 1s ease-out 1.6s both' }}
-          >
-           <Link href="/waitlist">
-        <button
-          className="group w-full rounded-2xl cursor-pointer sm:w-auto h-14 sm:h-14 px-8 sm:px-10 text-lg sm:text-lg font-medium bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 text-slate-900 shadow-xl transition-all duration-500 hover:scale-105 flex items-center justify-center relative overflow-hidden"
-        >
-          <span className="relative z-10 flex items-center">
-            Get Started
-            <ArrowRight className="w-5 h-5 sm:w-5 sm:h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-          </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        </button>
-      </Link>
+          {/* CTA Buttons */}
+          <div className="cta-buttons">
+            <Link href="/waitlist">
+              <button className="cta-primary">
+                <span className="relative z-10 flex items-center">
+                  Get Started
+                  <ArrowRight className="w-5 h-5 sm:w-5 sm:h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </button>
+            </Link>
 
-      <Link href="/support">
-        <button
-          className="group w-full rounded-2xl cursor-pointer sm:w-auto h-14 sm:h-14 px-8 sm:px-10 text-lg sm:text-lg border-2 border-white/30 hover:border-white/50 text-white hover:bg-white/5 bg-transparent backdrop-blur-sm transition-all duration-500 hover:scale-105 relative overflow-hidden"
-        >
-          Go to Support
-        </button>
-      </Link>
+            <Link href="/support">
+              <button className="cta-secondary">
+                Go to Support
+              </button>
+            </Link>
           </div>
         </div>
       </main>
 
-      {/* Enhanced CSS Animations */}
+      {/* Optimized CSS with hardware acceleration */}
       <style jsx>{`
-        /* Enhanced Ellipse Opacity Animation - Appears after all content loads */
+        /* Hardware acceleration and performance optimizations */
+        .ellipse-optimized {
+          opacity: 0;
+          transform: translateY(30px) scale(0.95) translateZ(0);
+          filter: drop-shadow(0 0 0px rgba(6,182,212,0));
+          animation: ellipse-opacity-reveal 3s ease-out 0.2s both, ellipse-gentle-float 6s ease-in-out infinite 3.2s;
+          will-change: transform, opacity, filter;
+          backface-visibility: hidden;
+        }
+
+        /* Optimized badge */
+        .badge-container {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.5rem 1.25rem;
+          margin: 4rem 0 2rem;
+          border-radius: 9999px;
+          background-color: rgba(6, 182, 212, 0.1);
+          color: rgb(6, 182, 212);
+          border: 1px solid rgba(6, 182, 212, 0.2);
+          backdrop-filter: blur(4px);
+          transition: all 0.5s ease;
+          animation: fade-in-up 1s ease-out 0.2s both;
+          will-change: transform;
+          font-size: 1rem;
+        }
+
+        @media (min-width: 768px) {
+          .badge-container {
+            font-size: 1.25rem;
+            margin: 4.5rem 0 2rem;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .badge-container {
+            margin: 6rem 0 2rem;
+          }
+        }
+
+        .badge-container:hover {
+          transform: scale(1.05) translateZ(0);
+          background-color: rgba(6, 182, 212, 0.2);
+          border-color: rgba(6, 182, 212, 0.4);
+        }
+
+        .sparkle-spin {
+          animation: spin 3s linear infinite;
+          will-change: transform;
+        }
+
+        /* Optimized title animations */
+        .main-title {
+          animation: fade-in-up 1.2s ease-out 0.4s both;
+          will-change: transform, opacity;
+        }
+
+        .title-gradient {
+          background: linear-gradient(to right, white, white, rgba(255,255,255,0.7));
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          transition: all 1s ease;
+        }
+
+        .subtitle-word {
+          display: inline-block;
+          transition: transform 0.7s ease;
+          will-change: transform;
+        }
+
+        .subtitle-word:hover {
+          transform: scale(1.1) translateZ(0);
+        }
+
+        .subtitle-build {
+          background: linear-gradient(to right, white, rgba(255,255,255,0.9));
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          animation: fade-in-left 1s ease-out 0.8s both;
+        }
+
+        .subtitle-deploy {
+          background: linear-gradient(to right, rgba(255,255,255,0.8), rgba(255,255,255,0.7));
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          animation: fade-in-up 1s ease-out 1s both;
+        }
+
+        .scale-word {
+          background: linear-gradient(90deg, #22d3ee, #06b6d4, #0891b2, #10b981, #059669, #22d3ee);
+          background-size: 200% 100%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+          animation: fade-in-right 1s ease-out 1.2s both, smooth-flow 4s linear infinite 2s;
+          will-change: background-position;
+        }
+
+        .description-text {
+          font-size: 1.25rem;
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.8);
+          max-width: 48rem;
+          margin: 0 auto;
+          transition: color 1s ease;
+          animation: fade-in-up 1s ease-out 1.4s both;
+          will-change: color;
+        }
+
+        @media (min-width: 640px) {
+          .description-text {
+            font-size: 1.5rem;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .description-text {
+            font-size: 1.5rem;
+          }
+        }
+
+        .description-text:hover {
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Optimized CTA buttons */
+        .cta-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          justify-content: center;
+          animation: fade-in-up 1s ease-out 1.6s both;
+          will-change: transform, opacity;
+        }
+
+        @media (min-width: 640px) {
+          .cta-buttons {
+            flex-direction: row;
+            gap: 1.5rem;
+          }
+        }
+
+        .cta-primary, .cta-secondary {
+          width: 100%;
+          height: 3.5rem;
+          padding: 0 2rem;
+          font-size: 1.125rem;
+          font-weight: 500;
+          border-radius: 1rem;
+          cursor: pointer;
+          transition: all 0.5s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+          will-change: transform;
+          backface-visibility: hidden;
+        }
+
+        @media (min-width: 640px) {
+          .cta-primary, .cta-secondary {
+            width: auto;
+            padding: 0 2.5rem;
+          }
+        }
+
+        .cta-primary {
+          background: linear-gradient(to right, #22d3ee, #14b8a6);
+          color: rgb(15, 23, 42);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .cta-primary:hover {
+          background: linear-gradient(to right, #06b6d4, #0d9488);
+          transform: scale(1.05) translateZ(0);
+        }
+
+        .cta-secondary {
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          color: white;
+          background: transparent;
+          backdrop-filter: blur(4px);
+        }
+
+        .cta-secondary:hover {
+          border-color: rgba(255, 255, 255, 0.5);
+          background-color: rgba(255, 255, 255, 0.05);
+          transform: scale(1.05) translateZ(0);
+        }
+
+        /* Optimized keyframe animations */
         @keyframes ellipse-opacity-reveal {
           0% { 
             opacity: 0;
-            transform: translateY(30px) scale(0.95);
+            transform: translateY(30px) scale(0.95) translateZ(0);
             filter: drop-shadow(0 0 0px rgba(6,182,212,0));
-          }
-          25% {
-            opacity: 0.3;
-            transform: translateY(15px) scale(0.97);
-            filter: drop-shadow(0 0 30px rgba(6,182,212,0.1));
-          }
-          50% {
-            opacity: 0.6;
-            transform: translateY(8px) scale(0.98);
-            filter: drop-shadow(0 0 60px rgba(6,182,212,0.2));
-          }
-          75% {
-            opacity: 0.85;
-            transform: translateY(3px) scale(0.99);
-            filter: drop-shadow(0 0 80px rgba(6,182,212,0.3));
           }
           100% { 
             opacity: 1;
-            transform: translateY(0px) scale(1);
+            transform: translateY(0px) scale(1) translateZ(0);
             filter: drop-shadow(0 0 100px rgba(6,182,212,0.4));
           }
         }
 
         @keyframes ellipse-gentle-float {
           0%, 100% { 
-            transform: translateY(0px) scale(1); 
+            transform: translateY(0px) scale(1) translateZ(0); 
             filter: drop-shadow(0 0 100px rgba(6,182,212,0.4));
           }
           50% { 
-            transform: translateY(-8px) scale(1.01); 
+            transform: translateY(-8px) scale(1.01) translateZ(0); 
             filter: drop-shadow(0 0 120px rgba(6,182,212,0.5));
           }
         }
 
-        /* Simple, Smooth Scale Word Animation */
-        .scale-word {
-          background: linear-gradient(90deg, #22d3ee, #06b6d4, #0891b2, #10b981, #059669, #22d3ee);
-          background-size: 200% 100%;
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          animation: smooth-flow 4s linear infinite;
-        }
-
         @keyframes smooth-flow {
-          0% {
-            background-position: 0% 50%;
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+
+        @keyframes fade-in-up {
+          from { 
+            opacity: 0; 
+            transform: translateY(30px) translateZ(0); 
           }
-          100% {
-            background-position: 200% 50%;
+          to { 
+            opacity: 1; 
+            transform: translateY(0) translateZ(0); 
+          }
+        }
+        
+        @keyframes fade-in-left {
+          from { 
+            opacity: 0; 
+            transform: translateX(-30px) translateZ(0); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateX(0) translateZ(0); 
+          }
+        }
+        
+        @keyframes fade-in-right {
+          from { 
+            opacity: 0; 
+            transform: translateX(30px) translateZ(0); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateX(0) translateZ(0); 
           }
         }
 
-        /* Particle Glow Effect */
-        .particle-glow {
-          filter: blur(0.5px);
-          box-shadow: 
-            0 0 10px currentColor,
-            0 0 20px currentColor,
-            0 0 40px currentColor;
-        }
-
-        /* Breathing Gradient */
         .gradient-breathing {
           opacity: 0;
           animation: gradient-fade-in 1.5s ease-out 1.5s both;
-        }
-
-        @keyframes opacity-wave {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
         }
 
         @keyframes gradient-fade-in {
@@ -267,24 +430,22 @@ export default function HeroSection() {
           100% { opacity: 1; }
         }
 
-        @keyframes float-particle {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-15px) rotate(180deg); }
-        }
-        
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes fade-in-left {
-          from { opacity: 0; transform: translateX(-30px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes fade-in-right {
-          from { opacity: 0; transform: translateX(30px); }
-          to { opacity: 1; transform: translateX(0); }
+        /* Performance optimizations for reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .ellipse-optimized {
+            animation: ellipse-opacity-simple 2s ease-out 0.2s both;
+          }
+          
+          .scale-word {
+            background: linear-gradient(90deg, #22d3ee, #10b981);
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: fade-in-right 1s ease-out 1.2s both;
+          }
+
+          .sparkle-spin {
+            animation: none;
+          }
         }
 
         @keyframes ellipse-opacity-simple {
@@ -292,33 +453,12 @@ export default function HeroSection() {
           to { opacity: 1; }
         }
 
-        /* Responsive Enhancements */
-        @media (max-width: 768px) {
-          .ellipse-opacity-animation {
-            animation-duration: 2.5s, 5s;
-            animation-delay: 0.2s, 2.7s;
-          }
-        }
-
-        /* High-end visual enhancements */
-        @media (prefers-reduced-motion: no-preference) {
-          .ellipse-opacity-animation {
-            will-change: transform, opacity, filter;
-          }
-        }
-
-        /* Reduced motion accessibility */
-        @media (prefers-reduced-motion: reduce) {
-          .ellipse-opacity-animation {
-            animation: ellipse-opacity-simple 2s ease-out 0.2s both;
-          }
-          
-          .scale-word {
-            background: linear-gradient(90deg, #22d3ee, #10b981);
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: none;
-          }
+        /* GPU acceleration hints */
+        .main-title,
+        .badge-container,
+        .cta-buttons,
+        .description-text {
+          transform: translateZ(0);
         }
       `}</style>
     </section>
