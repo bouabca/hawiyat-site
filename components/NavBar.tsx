@@ -68,7 +68,7 @@ export default function NavBar() {
 
                 {/* Desktop CTA Button */}
                 <Link 
-                    href="/lets-start" 
+                    href="/waitlist" 
                     className="hidden lg:block bg-[#2BFFFF] hover:bg-[#1CDDDD] 
                         py-2 px-4 rounded-2xl text-black font-semibold 
                         transition-all duration-200 hover:shadow-lg hover:shadow-[#2BFFFF]/25
@@ -146,7 +146,7 @@ export default function NavBar() {
 
                     {/* Mobile CTA button */}
                     <Link 
-                        href="#" 
+                        href="/waitlist" 
                         className="bg-[#2BFFFF] hover:bg-[#1CDDDD] 
                             py-3 px-6 rounded-[50px] text-black font-semibold 
                             text-center transition-all duration-200 
