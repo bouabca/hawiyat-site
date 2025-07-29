@@ -292,8 +292,7 @@ export default function Page() {
   )
 }
 
-// Throttle function for smooth scroll performance
-function throttle<T extends (...args: any[]) => void>(func: T, limit: number): T {
+function throttle<T extends (...args: unknown[]) => void>(func: T, limit: number): T {
     let inThrottle = false;
     return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
       if (!inThrottle) {
