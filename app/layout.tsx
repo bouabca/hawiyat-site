@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://hawiyat.org/hawiyat-logo.svg',
-        width: 512,
-        height: 512,
+        width: 2000,
+        height: 2000,
         alt: 'Hawiyat Platform',
       }
     ],
