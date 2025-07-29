@@ -53,16 +53,16 @@ export default function NavBar() {
                         Templates
                     </Link>
                     <Link 
-                        href="#" 
+                        href="/#Features" 
                         className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
                         Features
                     </Link>
                     <Link 
-                        href="/#Features" 
+                         href="/#feedback" 
                         className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
-                        About Us
+                        feedback
                     </Link>
                 </div>
 
@@ -127,7 +127,7 @@ export default function NavBar() {
                             Templates
                         </Link>
                         <Link 
-                            href="/Features" 
+                            href="/#Features" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
                                 font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
@@ -135,12 +135,12 @@ export default function NavBar() {
                             Features
                         </Link>
                         <Link 
-                            href="#" 
+                            href="/#feedback" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
                                 font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
                         >
-                            About Us
+                            feedback
                         </Link>
                     </div>
 

@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { Github, Twitter, Moon, Sun, Monitor, ChevronDown, ChevronUp } from 'lucide-react';
-
+import Image from 'next/image';
 // Define types
 type Theme = 'dark' | 'light' | 'system';
 type ExpandedSections = { [key: number]: boolean };
@@ -70,7 +70,13 @@ const Footer = () => {
           {/* Logo and Social */}
           <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-800">
             <div className="flex items-center gap-2">
-              <img src="/logo.svg" alt="Hawiyat Logo" className="w-8 h-8" />
+            <Image 
+                src="/logo.svg" 
+                alt="Hawiyat Logo" 
+                width={32} 
+                height={32} 
+                className="w-8 h-8" 
+                />
               <span className="text-sm text-gray-400">© 2025</span>
             </div>
             <div className="flex gap-3">
@@ -154,7 +160,13 @@ const Footer = () => {
           {/* Logo and Copyright */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <img src="/logo.svg" alt="Hawiyat Logo" className="w-10 h-10" />
+            <Image 
+                src="/logo.svg" 
+                alt="Hawiyat Logo" 
+                width={32} 
+                height={32} 
+                className="w-10 h-10" 
+                />
               <span className="text-sm text-gray-400">© 2025</span>
             </div>
             <p className="text-sm text-gray-400 mb-6">All right reserved</p>
