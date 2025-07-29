@@ -13,7 +13,7 @@ export default function HeroSection() {
     badge: "Bring your business to the best scale",
     title: "Hawiyat Platform",
     subtitle: ["Build", "Deploy", "Scale"],
-    description: "Hawiyat is the first AI-powered PaaS in the region that unifies DevOps, Cloud, Security and automation in one seamless platform"
+    description: "Hawiyat is the first AI-powered PaaS in the World that unifies DevOps, Cloud, Security and automation in one seamless platform"
   }), []);
 
   useEffect(() => {
