@@ -41,25 +41,25 @@ export default function NavBar() {
                 {/* Desktop menu - Hidden on mobile */}
                 <div className="hidden lg:flex justify-around items-center gap-x-6 xl:gap-x-8 text-white">
                     <Link 
-                        href="#" 
+                        href="/Products" 
                         className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
                         Products
                     </Link>
                     <Link 
-                        href="#" 
+                        href="templates" 
                         className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
-                        Use Cases
+                        Templates
                     </Link>
                     <Link 
                         href="#" 
                         className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
-                        Blog
+                        Features
                     </Link>
                     <Link 
-                        href="#" 
+                        href="/#Features" 
                         className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm"
                     >
                         About Us
@@ -111,7 +111,7 @@ export default function NavBar() {
                     {/* Mobile navigation links */}
                     <div className="flex flex-col space-y-4 mb-6">
                         <Link 
-                            href="#" 
+                            href="/Products" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
                                 font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
@@ -119,20 +119,20 @@ export default function NavBar() {
                             Products
                         </Link>
                         <Link 
-                            href="#" 
+                            href="/templates" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
                                 font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
                         >
-                            Use Cases
+                            Templates
                         </Link>
                         <Link 
-                            href="#" 
+                            href="/Features" 
                             className="text-white hover:text-[#2BFFFF] transition-colors duration-200 
                                 font-medium text-base py-2 border-b border-white/10"
                             onClick={closeMenu}
                         >
-                            Blog
+                            Features
                         </Link>
                         <Link 
                             href="#" 

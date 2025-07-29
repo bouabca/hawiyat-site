@@ -27,7 +27,7 @@ export default function Page() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedFilters, setSelectedFilters] = useState<{ [key: string]: string[] }>({})
   const [visibleCount, setVisibleCount] = useState(INITIAL_LOAD)
-  const [scrollY, setScrollY] = useState(0)
+  const [, setScrollY] = useState(0); // if you still use setScrollY
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   
   const containerRef = useRef<HTMLDivElement>(null)

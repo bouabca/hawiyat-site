@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Image from 'next/image'; // ✅ Import Next.js Image
-
+import Link from 'next/link';
 export default function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
@@ -158,28 +158,25 @@ export default function HeroSection() {
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center"
             style={{ animation: 'fade-in-up 1s ease-out 1.6s both' }}
           >
-            <button 
-              className="group w-full rounded-2xl cursor-pointer sm:w-auto h-14 sm:h-14 px-8 sm:px-10 text-lg sm:text-lg font-medium bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 text-slate-900 shadow-xl transition-all duration-500 hover:scale-105 flex items-center justify-center relative overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center">
-                Get Started
-                <ArrowRight className="w-5 h-5 sm:w-5 sm:h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </button>
-            <button 
-              className="group w-full rounded-2xl cursor-pointer sm:w-auto h-14 sm:h-14 px-8 sm:px-10 text-lg sm:text-lg border-2 border-white/30 hover:border-white/50 text-white hover:bg-white/5 bg-transparent backdrop-blur-sm transition-all duration-500 hover:scale-105 relative overflow-hidden"
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)';
-              }}
-            >
-              Go to Support
-            </button>
+           <Link href="/waitlist">
+        <button
+          className="group w-full rounded-2xl cursor-pointer sm:w-auto h-14 sm:h-14 px-8 sm:px-10 text-lg sm:text-lg font-medium bg-gradient-to-r from-cyan-400 to-teal-500 hover:from-cyan-300 hover:to-teal-400 text-slate-900 shadow-xl transition-all duration-500 hover:scale-105 flex items-center justify-center relative overflow-hidden"
+        >
+          <span className="relative z-10 flex items-center">
+            Get Started
+            <ArrowRight className="w-5 h-5 sm:w-5 sm:h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+          <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        </button>
+      </Link>
+
+      <Link href="/support">
+        <button
+          className="group w-full rounded-2xl cursor-pointer sm:w-auto h-14 sm:h-14 px-8 sm:px-10 text-lg sm:text-lg border-2 border-white/30 hover:border-white/50 text-white hover:bg-white/5 bg-transparent backdrop-blur-sm transition-all duration-500 hover:scale-105 relative overflow-hidden"
+        >
+          Go to Support
+        </button>
+      </Link>
           </div>
         </div>
       </main>
