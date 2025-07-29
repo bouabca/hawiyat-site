@@ -20,7 +20,7 @@ export default function HeroSection() {
     setMounted(true);
     
     // Use passive listeners for better performance
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e:MouseEvent) => {
       // Use CSS custom properties for smooth hardware-accelerated animations
       document.documentElement.style.setProperty('--mouse-x', `${(e.clientX / window.innerWidth) * 100}%`);
       document.documentElement.style.setProperty('--mouse-y', `${(e.clientY / window.innerHeight) * 100}%`);
@@ -33,7 +33,7 @@ export default function HeroSection() {
 
     // Use passive listeners and throttle for performance
     let ticking = false;
-    const throttledMouseMove = (e) => {
+    const throttledMouseMove = (e:MouseEvent) => {
       if (!ticking) {
         requestAnimationFrame(() => {
           handleMouseMove(e);
