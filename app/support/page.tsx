@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { Send, RefreshCw, Cpu, Sparkles, Copy, Share, Bookmark, Cloud, Server, Shield } from "lucide-react"
 import { marked } from "marked" // Import the marked library
-
+import Image from "next/image"
 interface Message {
   role: "user" | "assistant"
   content: string
@@ -230,14 +230,14 @@ export default function HawiyatSupportChat() {
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg ${
                     message.role === "user"
-                      ? "bg-gradient-to-br from-blue-500 to-blue-600 shadow-blue-500/25"
-                      : "bg-gradient-to-br from-cyan-400 to-teal-500 shadow-cyan-500/25"
+                      ? "bg-transparent"
+                      : "bg-transparent"
                   }`}
                 >
                   {message.role === "user" ? (
                     <div className="w-5 h-5 rounded-full bg-white/30 border border-white/40" />
                   ) : (
-                    <Cpu className="w-5 h-5 text-black" />
+                    <Image alt="Hawiyat Bot" height={50} width={50} src={"/hawiyat-logo.svg"} />
                   )}
                 </div>
                 {/* Message Content */}
@@ -313,8 +313,8 @@ export default function HawiyatSupportChat() {
           {isLoading && (
             <div className="flex justify-start loading-fade-in">
               <div className="flex items-start gap-4 max-w-[85%]">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-cyan-500/25">
-                  <Cpu className="w-5 h-5 text-black" />
+                <div className="w-10 h-10 rounded-xl bg-transparent flex items-center justify-center ">
+                  <Image alt="Hawiyat Bot" height={50} width={50} src={"/hawiyat-logo.svg"} />
                 </div>
                 <div className="p-4 rounded-2xl bg-gray-900/90 border border-gray-700/50 text-gray-100 backdrop-blur-sm shadow-lg relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-teal-500/10 blur-xl"></div>
