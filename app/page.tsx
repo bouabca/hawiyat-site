@@ -7,7 +7,7 @@ import ExtraFeatures from "@/components/HomePage/ExtraFeatures";
 import Footer from "@/components/Footer";
 export default function HomePage() {
   return (
-    <main className="overflow-x-hidden">
+    <main className="overflow-x-hidden bg-white dark:bg-black">
       <HeroSection />
       <StatsSection />
       <UnifiedSupportFeatures />
