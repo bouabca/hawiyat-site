@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Space_Grotesk } from 'next/font/google';
 import NavBar from '@/components/NavBar';
 import './globals.css';
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     images: ['https://hawiyat.org/hawiyat.png'],
     creator: '@hawiyat',
   },
-    alternates: {
+  alternates: {
     canonical: 'https://hawiyat.org',
     languages: {
       'en-US': 'https://hawiyat.org',
@@ -79,7 +80,6 @@ export const metadata: Metadata = {
   },
   manifest: '/site.webmanifest',
   other: {
-    // JSON-LD Organization Schema
     'application/ld+json': JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -104,6 +104,20 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-L3YHRGB5E3"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-L3YHRGB5E3');`}
+        </Script>
+      </head>
       <body className={`${spaceGrotesk.className} overflow-auto`}>
         <NavBar />
         {children}
@@ -111,3 +125,5 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+
+
