@@ -73,7 +73,7 @@ function VerificationSuccessContent() {
 
                         {/* Additional Info */}
                         <div className="bg-[#151515] border border-[#414141] rounded-lg p-4 text-left">
-                            <h3 className="text-white font-medium mb-2 text-sm sm:text-base">What's Next?</h3>
+                            <h3 className="text-white font-medium mb-2 text-sm sm:text-base">What is Next?</h3>
                             <ul className="space-y-1 text-xs sm:text-sm text-gray-300 list-disc list-inside">
                                 <li>Sign in with your email and password</li>
                                 <li>Browse our VPS hosting plans</li>

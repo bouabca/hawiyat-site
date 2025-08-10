@@ -5,6 +5,7 @@ import GitHubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { prisma } from './prisma'
+import type { Provider } from "next-auth/providers"
 
 // Custom Bitbucket Provider (since it's not officially supported)
 interface BitbucketProfile {
@@ -27,7 +28,7 @@ interface BitbucketProfile {
   email?: string
 }
 
-function BitbucketProvider(options: { clientId: string; clientSecret: string }) {
+function BitbucketProvider(options: { clientId: string; clientSecret: string }): Provider {
   return {
     id: "bitbucket",
     name: "Bitbucket",
@@ -75,7 +76,7 @@ function BitbucketProvider(options: { clientId: string; clientSecret: string }) 
     },
     clientId: options.clientId,
     clientSecret: options.clientSecret,
-  } as const
+  }
 }
 
 export const authOptions: NextAuthOptions = {
@@ -147,7 +148,7 @@ export const authOptions: NextAuthOptions = {
     BitbucketProvider({
       clientId: process.env.BITBUCKET_CLIENT_ID!,
       clientSecret: process.env.BITBUCKET_CLIENT_SECRET!,
-    }) as any,
+    }),
   ],
   pages: {
     signIn: "/auth/signin",

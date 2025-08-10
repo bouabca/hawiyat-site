@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useRef, useEffect } from "react"
-import { Send, RefreshCw, Cpu, Sparkles, Copy, Share, Bookmark, Cloud, Server, Shield } from "lucide-react"
+import { Send, RefreshCw, Sparkles, Copy, Share, Bookmark, Cloud, Server, Shield } from "lucide-react"
 import { marked } from "marked" // Import the marked library
 import Image from "next/image"
 interface Message {

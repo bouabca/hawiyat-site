@@ -139,7 +139,7 @@ export default function ForgotPasswordPage() {
                             </h1>
 
                             <p className="text-gray-400 text-center mb-8 sm:mb-10 text-sm sm:text-base">
-                                Enter your email and we'll send you a secure reset link
+                                Enter your email and we will send you a secure reset link
                             </p>
 
                             {/* Forgot Password Form */}
@@ -234,7 +234,7 @@ export default function ForgotPasswordPage() {
                                 </h1>
 
                                 <p className="text-gray-400 mb-6 text-sm sm:text-base leading-relaxed">
-                                    We've sent a secure reset link to<br />
+                                    We ve sent a secure reset link to<br />
                                     <span className="text-white font-medium">{email}</span>
                                 </p>
 

@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils"
 import { useCart } from "@/context/cart-context"
 import { offersData, Offer } from "@/context/offers"
 
+// Import the PricingTier type from cart context to ensure compatibility
+import type { PricingTier } from "@/context/cart-context"
+
 const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, type, ...props }, ref) => {
     return (
@@ -57,9 +60,9 @@ function PlanSelector({
   isOpen: boolean
   onClose: () => void
   offer: Offer | null
-  onAddToCart: (offer: Offer, selectedPricingTier: any, quantity: number, serverName: string) => void
+  onAddToCart: (offer: Offer, selectedPricingTier: PricingTier, quantity: number, serverName: string) => void
 }) {
-  const [selectedBillingCycle, setSelectedBillingCycle] = useState<'MONTHLY' | 'QUARTERLY' | 'SEMI_ANNUAL' | 'ANNUAL'>('MONTHLY')
+  const [selectedBillingCycle, setSelectedBillingCycle] = useState<'MONTHLY' | 'SEMI_ANNUAL' | 'ANNUAL'>('MONTHLY')
   const [quantity, setQuantity] = useState(1)
   const [serverName, setServerName] = useState('')
 
@@ -281,7 +284,7 @@ function OfferCard({ offer }: { offer: Offer }) {
     setIsPlanModalOpen(true)
   }
 
-  const handleAddToCart = (offer: Offer, selectedPricingTier: any, quantity: number, serverName: string) => {
+  const handleAddToCart = (offer: Offer, selectedPricingTier: PricingTier, quantity: number, serverName: string) => {
     // Create cart item matching the cart context interface
     const cartItem = {
       id: `${offer.id}-${selectedPricingTier.billingCycle}-${serverName}`,
@@ -324,8 +327,8 @@ function OfferCard({ offer }: { offer: Offer }) {
           <h2 className="text-white text-lg font-semibold mb-4 flex-shrink-0">What you will get</h2>
           <div className="flex-grow">
             <ul className="space-y-3">
-              {offer.features.map((feature: string, index: number) => (
-                <li key={index} className="flex items-start gap-3">
+              {offer.features.map((feature: string, featureIndex: number) => (
+                <li key={featureIndex} className="flex items-start gap-3">
                   <CircleCheck className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
                   <span className="text-gray-300 text-sm leading-relaxed flex-1">
                     {feature}
@@ -560,11 +563,11 @@ export default function VPSOffersPage() {
               <hr className="border-[#333]" />
 
               <div className="flex flex-col gap-3">
-                {filterCategories.map((category, index) => {
+                {filterCategories.map((category, categoryIndex) => {
                   const isExpanded = expandedCategories[category.key]
                   const selectedCount = getCategorySelectedCount(category.key)
                   return (
-                    <div key={index} className="flex flex-col">
+                    <div key={categoryIndex} className="flex flex-col">
                       <button
                         onClick={() => toggleCategory(category.key)}
                         className="flex items-center justify-between p-3 bg-[#111] hover:bg-[#1a1a1a] rounded-lg border border-[#333] transition-colors"
@@ -587,24 +590,24 @@ export default function VPSOffersPage() {
                       <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isExpanded ? 'max-h-96 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
                         <div className="bg-[#0a0a0a] border border-[#333] rounded-lg overflow-hidden">
                           <div>
-                            {category.options.map((option: FilterOption, optIndex: number) => {
+                            {category.options.map((option: FilterOption, optionIndex: number) => {
                               const isSelected = selectedFilters[category.key]?.includes(option.value) || false
                               return (
                                 <div
-                                  key={optIndex}
+                                  key={optionIndex}
                                   className={`flex items-center px-4 py-2 hover:bg-[#1a1a1a] cursor-pointer border-b border-[#333] last:border-b-0 transition-colors ${isSelected ? "bg-cyan-900/20" : ""}`}
                                   onClick={() => handleFilterChange(category.key, option.value, !isSelected)}
                                 >
                                   <input
                                     type="checkbox"
-                                    id={`${category.key}-${optIndex}`}
+                                    id={`${category.key}-${optionIndex}`}
                                     className="accent-cyan-500 w-4 h-4 mr-3"
                                     checked={isSelected}
                                     onChange={(e) => handleFilterChange(category.key, option.value, e.target.checked)}
                                     onClick={(e) => e.stopPropagation()}
                                   />
                                   <label
-                                    htmlFor={`${category.key}-${optIndex}`}
+                                    htmlFor={`${category.key}-${optionIndex}`}
                                     className={`cursor-pointer text-sm flex-1 select-none transition-colors ${isSelected ? "font-medium text-cyan-300" : "text-white/80"}`}
                                   >
                                     {option.label}
@@ -636,7 +639,7 @@ export default function VPSOffersPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-6 transition-all duration-300">
-              {filteredOffers.map((offer, index: number) => (
+              {filteredOffers.map((offer) => (
                 <div key={offer.id} className="animate-in fade-in duration-300">
                   <OfferCard offer={offer} />
                 </div>
