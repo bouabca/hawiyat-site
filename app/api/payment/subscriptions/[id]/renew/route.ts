@@ -1,4 +1,3 @@
-import { addMonths } from "date-fns";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
@@ -10,9 +9,10 @@ import { createInvoice, createPayment } from "@/lib/helper";
 // app/api/subscriptions/[id]/renew/route.ts
 export async function POST(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
   ) {
     try {
+      const { id } = await params
       const session = await getServerSession()
       
       if (!session?.user?.email) {
@@ -31,7 +31,7 @@ export async function POST(
   
       const subscription = await prisma.subscription.findFirst({
         where: {
-          id: params.id,
+          id,
           userId: user.id,
           status: { in: ["ACTIVE", "SUSPENDED", "EXPIRED"] },
         },
@@ -106,5 +106,3 @@ export async function POST(
       )
     }
   }
-  
- 

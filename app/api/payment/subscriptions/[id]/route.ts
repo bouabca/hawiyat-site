@@ -8,9 +8,10 @@ import { prisma } from "@/lib/prisma"
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await getServerSession()
     
     if (!session?.user?.email) {
@@ -27,7 +28,7 @@ export async function GET(
 
     const subscription = await prisma.subscription.findFirst({
       where: {
-        id: params.id,
+        id,
         userId: user.id,
       },
       include: {
@@ -64,9 +65,10 @@ export async function GET(
 // Update subscription (change plan, billing cycle, etc.)
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await getServerSession()
     
     if (!session?.user?.email) {
@@ -85,7 +87,7 @@ export async function PATCH(
 
     const subscription = await prisma.subscription.findFirst({
       where: {
-        id: params.id,
+        id,
         userId: user.id,
       },
       include: { plan: true, pricingTier: true },

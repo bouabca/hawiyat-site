@@ -42,7 +42,13 @@ function BitbucketProvider(options: { clientId: string; clientSecret: string }) 
     token: "https://bitbucket.org/site/oauth2/access_token",
     userinfo: {
       url: "https://api.bitbucket.org/2.0/user",
-      async request({ tokens }: { tokens: any }) {
+      async request(context: { tokens: { access_token?: string } }) {
+        const { tokens } = context;
+        
+        if (!tokens.access_token) {
+          throw new Error("No access token available");
+        }
+
         const [userRes, emailRes] = await Promise.all([
           fetch("https://api.bitbucket.org/2.0/user", {
             headers: { Authorization: `Bearer ${tokens.access_token}` },
@@ -54,7 +60,7 @@ function BitbucketProvider(options: { clientId: string; clientSecret: string }) 
         
         const user = await userRes.json();
         const emails = emailRes ? await emailRes.json() : null;
-        const primaryEmail = emails?.values?.find((e: any) => e.is_primary)?.email;
+        const primaryEmail = emails?.values?.find((e: { is_primary: boolean; email: string }) => e.is_primary)?.email;
         
         return { ...user, email: primaryEmail };
       },
@@ -69,7 +75,7 @@ function BitbucketProvider(options: { clientId: string; clientSecret: string }) 
     },
     clientId: options.clientId,
     clientSecret: options.clientSecret,
-  }
+  } as const
 }
 
 export const authOptions: NextAuthOptions = {
@@ -141,7 +147,7 @@ export const authOptions: NextAuthOptions = {
     BitbucketProvider({
       clientId: process.env.BITBUCKET_CLIENT_ID!,
       clientSecret: process.env.BITBUCKET_CLIENT_SECRET!,
-    }),
+    }) as any,
   ],
   pages: {
     signIn: "/auth/signin",
