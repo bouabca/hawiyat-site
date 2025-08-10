@@ -4,7 +4,52 @@
 // app/api/cron/check-expiry/route.ts
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
-import { subDays, isPast, addDays } from "date-fns"
+import { subDays, addDays } from "date-fns"
+
+// Define email notification types
+type EmailNotificationType = 
+  | "RENEWAL_REMINDER_7D"
+  | "RENEWAL_REMINDER_3D"
+  | "RENEWAL_REMINDER_1D"
+  | "INVOICE_CREATED"
+  | "SERVICE_SUSPENDED"
+  | "SERVICE_TERMINATED"
+  | "INVOICE_OVERDUE"
+
+// Define subscription types for different scenarios
+type BaseSubscriptionWithDetails = {
+  id: string
+  userId: string
+  status: string
+  currentPeriodEnd: Date
+  autoRenew: boolean
+  cancelAtPeriodEnd: boolean
+  user: {
+    id: string
+    email: string
+    name: string | null
+  }
+  plan: {
+    id: string
+    name: string
+  }
+}
+
+type SubscriptionWithPricing = BaseSubscriptionWithDetails & {
+  pricingTier: {
+    id: string
+    price: number
+    currency: string
+    billingCycle: string
+  }
+  invoices?: Array<{
+    id: string
+    periodStart: Date
+    periodEnd: Date
+  }>
+}
+
+type SubscriptionForNotification = BaseSubscriptionWithDetails | SubscriptionWithPricing
 
 export async function GET(req: NextRequest) {
   try {
@@ -155,6 +200,7 @@ export async function GET(req: NextRequest) {
       include: {
         user: true,
         plan: true,
+        pricingTier: true, // Add pricingTier to match type
       }
     })
 
@@ -200,6 +246,7 @@ export async function GET(req: NextRequest) {
       include: {
         user: true,
         plan: true,
+        pricingTier: true, // Add pricingTier to match type
       }
     })
 
@@ -240,6 +287,7 @@ export async function GET(req: NextRequest) {
           include: {
             user: true,
             plan: true,
+            pricingTier: true, // Add pricingTier to match type
           }
         }
       }
@@ -269,13 +317,13 @@ export async function GET(req: NextRequest) {
           },
         })
 
-        if (!existingOverdueLog) {
+        if (!existingOverdueLog && invoice.subscription) {
           await sendEmailNotification({
             userId: invoice.userId,
             subscriptionId: invoice.subscriptionId!,
             type: "INVOICE_OVERDUE",
             subject: `Overdue Invoice - ${invoice.invoiceNumber}`,
-            subscription: invoice.subscription!,
+            subscription: invoice.subscription,
           })
         }
       }
@@ -313,9 +361,9 @@ async function sendEmailNotification({
 }: {
   userId: string
   subscriptionId: string
-  type: any
+  type: EmailNotificationType
   subject: string
-  subscription?: any
+  subscription: SubscriptionForNotification
 }) {
   try {
     // Add your email sending logic here (Resend, SendGrid, etc.)
@@ -332,7 +380,7 @@ async function sendEmailNotification({
       },
     })
 
-    console.log(`Email sent: ${type} to user ${userId}`)
+    console.log(`Email sent: ${type} to user ${userId} for subscription ${subscription.id}`)
   } catch (error) {
     console.error(`Failed to send email: ${type}`, error)
     

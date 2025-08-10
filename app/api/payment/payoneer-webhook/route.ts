@@ -5,7 +5,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 import crypto from "crypto"
-import  { calculateEndDate } from "@/lib/helper"
+import { calculateEndDate } from "@/lib/helper"
+
+// Define the email notification types based on your Prisma schema
+type EmailNotificationType = "PAYMENT_SUCCESS" | "WELCOME" | "PAYMENT_FAILED"
 
 export async function POST(req: NextRequest) {
   try {
@@ -139,14 +142,14 @@ async function sendEmailNotification({
 }: {
   userId: string
   subscriptionId: string
-  type: string
+  type: EmailNotificationType
 }) {
   try {
     await prisma.emailLog.create({
       data: {
         userId,
         subscriptionId,
-        type: type as any,
+        type,
         subject: `VPS ${type.replace('_', ' ').toLowerCase()}`,
         success: true,
       },

@@ -1,10 +1,20 @@
-
 // ===========================================
 // 1. Get Plans with Pricing Tiers
 // ===========================================
 // app/api/plans/route.ts
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+
+// Define the pricing tier structure
+interface PricingTierInfo {
+  id: string
+  price: number
+  currency: string
+  discountPercent: number | null
+}
+
+// Define billing cycle types (adjust based on your actual billing cycles)
+type BillingCycle = "MONTHLY" | "QUARTERLY" | "YEARLY"
 
 export async function GET() {
   try {
@@ -23,14 +33,14 @@ export async function GET() {
     const formattedPlans = plans.map(plan => ({
       ...plan,
       pricing: plan.pricingTiers.reduce((acc, tier) => {
-        acc[tier.billingCycle] = {
+        acc[tier.billingCycle as BillingCycle] = {
           id: tier.id,
           price: tier.price,
           currency: tier.currency,
           discountPercent: tier.discountPercent,
         }
         return acc
-      }, {} as Record<string, any>)
+      }, {} as Record<BillingCycle, PricingTierInfo>)
     }))
 
     return NextResponse.json({ plans: formattedPlans })
