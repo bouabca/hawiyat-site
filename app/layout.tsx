@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Space_Grotesk } from 'next/font/google';
-import NavBar from '@/components/NavBar';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth"; // Adjust the path to your auth config
 import './globals.css';
+import { CartProvider } from '../context/cart-context';
+import NavBar from '@/components/NavBar';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -19,8 +22,18 @@ export const metadata: Metadata = {
   description: 'Hawiyat is an all-in-one platform for developers to deploy, manage, and scale applications globally with serverless functions, managed databases, CI/CD, and edge networking.',
   applicationName: 'Hawiyat Platform',
   keywords: [
-    'Hawiyat', 'cloud deployment', 'serverless', 'CI/CD', 'edge network', 'managed databases', 'DevOps', 'web applications', 'global deployment', 'developer tools'
+    'vps algerie', 'vps dz', 'hebergement agl', 'Hawiyat', 'cloud deployment',
+    'serverless', 'CI/CD', 'edge network', 'managed databases', 'DevOps',
+    'web applications', 'global deployment', 'developer tools',
+    'hebergement algerie', 'hebergement web algerie', 'hebergeur algerien',
+    'serveur vps algerie', 'vps pas cher algerie', 'hebergement site web algerie',
+    'serveur dedie algerie', 'vps algerie prix', 'cloud vps algerie',
+    'hebergement professionnel algerie', 'hebergeur vps algerien',
+    'machine virtuelle algerie', 'hebergement vps algerie', 'vps local algerie',
+    'hebergement web local', 'vps illimité algerie', 'hebergement vps web',
+    'heberger site en algerie'
   ],
+  
   authors: [
     { name: 'Hawiyat Team', url: 'https://hawiyat.org' }
   ],
@@ -101,7 +114,10 @@ export const metadata: Metadata = {
   viewport: 'width=device-width, initial-scale=1.0'
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  // Get the session on the server side
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -119,11 +135,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </Script>
       </head>
       <body className={`${spaceGrotesk.className} overflow-auto`}>
-        <NavBar />
-        {children}
+        <CartProvider>
+          <NavBar session={session} /> {/* Pass session as prop */}
+          {children}
+        </CartProvider>
       </body>
     </html>
   );
 }
-
-
