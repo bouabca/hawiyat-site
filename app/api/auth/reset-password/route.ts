@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
     console.error('Reset password error:', error);
     
     // Handle specific database errors
-    if (error?.code === 'P2025') {
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'P2025') {
       return NextResponse.json(
         { error: 'Reset link is no longer valid. Please request a new password reset.' },
         { status: 400 }
