@@ -1,10 +1,172 @@
+// context/offers.ts
+
 export interface Offer {
-    title: string
-    price: string
-    description: string
-    features: string[]
-    provider: string
+  id: string
+  title: string
+  description: string
+  features: string[]
+  provider: string
+  location: string
+  useCase: string[]
+  // Plan specifications
+  cpu: number // vCPUs
+  ram: number // RAM in GB
+  storage: number // Storage in GB
+  bandwidth: number // Monthly bandwidth in GB
+  // Pricing tiers
+  pricingTiers: {
+    id: string
+    billingCycle: 'MONTHLY' | 'SEMI_ANNUAL' | 'ANNUAL'
+    price: number
+    currency: string
+    discountPercent?: number
+    displayPrice: string // Formatted price for display
+  }[]
+}
+
+export const offersData: Offer[] = [
+  {
+    id: "vps-bronze",
+    title: "VPS Bronze",
+    description: "VPS for light workloads, unlimited traffic.",
+    features: [
+      "1 vCore CPU",
+      "2 GB RAM",
+      "20 GB SSD",
+      "Unlimited bandwidth",
+      "1 Public IPv4",
+      "Optional managed support",
+    ],
+    provider: "not available yet",
+    location: "Algeria",
+    useCase: ["Personal Projects", "Small Websites"],
+    // Plan specs
+    cpu: 1,
+    ram: 2,
+    storage: 20,
+    bandwidth: -1, // -1 for unlimited
+    // Pricing tiers
+    pricingTiers: [
+      {
+        id: "bronze-monthly",
+        billingCycle: 'MONTHLY',
+        price: 2400,
+        currency: 'DZD',
+        displayPrice: '2,400 DZD/mo'
+      },
+      {
+        id: "bronze-semi-annual",
+        billingCycle: 'SEMI_ANNUAL',
+        price: 13600,
+        currency: 'DZD',
+        discountPercent: 5.6,
+        displayPrice: '13,600 DZD/6mo'
+      },
+      {
+        id: "bronze-annual",
+        billingCycle: 'ANNUAL',
+        price: 26000,
+        currency: 'DZD',
+        discountPercent: 9.7,
+        displayPrice: '26,000 DZD/yr'
+      }
+    ]
+  },
+  {
+    id: "vps-silver",
+    title: "VPS Silver",
+    description: "Small VPS for personal projects, unlimited traffic.",
+    features: [
+      "1 vCore CPU", 
+      "2 GB RAM", 
+      "40 GB SSD", 
+      "Unlimited bandwidth",
+      "1 Public IPv4", 
+      "Optional backups"
+    ],
+    provider: "not available yet",
+    location: "Algeria",
+    useCase: ["Personal Projects", "Small Websites", "Development"],
+    // Plan specs
+    cpu: 1,
+    ram: 2,
+    storage: 40,
+    bandwidth: -1, // unlimited
+    // Pricing tiers
+    pricingTiers: [
+      {
+        id: "silver-monthly",
+        billingCycle: 'MONTHLY',
+        price: 2900,
+        currency: 'DZD',
+        displayPrice: '2,900 DZD/mo'
+      },
+      {
+        id: "silver-semi-annual",
+        billingCycle: 'SEMI_ANNUAL',
+        price: 16400,
+        currency: 'DZD',
+        discountPercent: 5.7,
+        displayPrice: '16,400 DZD/6mo'
+      },
+      {
+        id: "silver-annual",
+        billingCycle: 'ANNUAL',
+        price: 31000,
+        currency: 'DZD',
+        discountPercent: 10.6,
+        displayPrice: '31,000 DZD/yr'
+      }
+    ]
+  },
+  {
+    id: "vps-gold",
+    title: "VPS Gold",
+    description: "Medium tier for web apps or small databases.",
+    features: [
+      "2 vCore CPU", 
+      "4 GB RAM", 
+      "80 GB SSD", 
+      "Unlimited bandwidth",
+      "1 Public IPv4", 
+      "cPanel available"
+    ],
+    provider: "not available yet",
+    location: "Algeria",
+    useCase: ["Web Applications", "Small Databases", "Small Business"],
+    // Plan specs
+    cpu: 2,
+    ram: 4,
+    storage: 80,
+    bandwidth: -1, // unlimited
+    // Pricing tiers
+    pricingTiers: [
+      {
+        id: "gold-monthly",
+        billingCycle: 'MONTHLY',
+        price: 5500,
+        currency: 'DZD',
+        displayPrice: '5,500 DZD/mo'
+      },
+      {
+        id: "gold-semi-annual",
+        billingCycle: 'SEMI_ANNUAL',
+        price: 31000,
+        currency: 'DZD',
+        discountPercent: 5.8,
+        displayPrice: '31,000 DZD/6mo'
+      },
+      {
+        id: "gold-annual",
+        billingCycle: 'ANNUAL',
+        price: 59000,
+        currency: 'DZD',
+        discountPercent: 10.6,
+        displayPrice: '59,000 DZD/yr'
+      }
+    ]
   }
+]
 
 // export const offersData: Offer[] = [
 //   {
@@ -187,38 +349,6 @@ export interface Offer {
 //       "1 Public IPv4",
 //       "VMware virtualization",
 //     ],
-//     provider: "Icosnet",
+//     provider: "Icosnet",pco
 //   },
 // ]
-
-export const offersData: Offer[] = [
-  {
-    title: "VPS Bronze",
-    price: "2 400 DZD/mo",
-    description: "VPS for light workloads, unlimited traffic.",
-    features: [
-      "1 vCore CPU",
-      "2 GB RAM",
-      "20 GB SSD",
-      
-      "1 Public IPv4",
-      "Optional managed support",
-    ],
-    provider: "not available yet",
-  },
-  {
-    title: " VPS Silver",
-    price: "2 900 DZD/mo",
-    description: "Small VPS for personal projects, unlimited traffic.",
-    features: ["1 vCore CPU", "2 GB RAM", "40 GB SSD",  "1 Public IPv4", "Optional backups"],
-    provider: "not available yet",
-  },
-  {
-    title: "VPS Gold",
-    price: "5 500 DZD/mo",
-    description: "Medium tier for web apps or small databases.",
-    features: ["2 vCore CPU", "4 GB RAM", "80 GB SSD",  "1 Public IPv4", "cPanel available"],
-    provider: "not available yet",
-  },
-
-]
