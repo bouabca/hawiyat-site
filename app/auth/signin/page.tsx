@@ -293,7 +293,7 @@ export default function Page() {
                         {/* Sign Up Link */}
                         <div className="text-center">
                             <span className="text-gray-400 text-sm sm:text-base">
-                                Don't have an account?{' '}
+                                Dont have an account?{' '}
                                 <Link
                                     href="/auth/signup"
                                     className="text-[#2BFFFF] hover:underline transition-colors duration-200"

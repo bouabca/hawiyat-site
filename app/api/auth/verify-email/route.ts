@@ -1,6 +1,8 @@
 // app/api/auth/verify-email/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import crypto from 'crypto';
+import { sendVerificationEmail } from '@/lib/email';
 
 export async function GET(request: NextRequest) {
   try {
@@ -142,14 +144,13 @@ export async function POST(request: NextRequest) {
     console.log('Deleted existing tokens:', deletedTokens.count);
 
     // Generate new verification token
-    const crypto = require('crypto');
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const tokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     console.log('Generated new token:', verificationToken.substring(0, 8) + '...', 'expires:', tokenExpires);
 
     // Create new verification token
-    const newToken = await prisma.verificationToken.create({
+    await prisma.verificationToken.create({
       data: {
         identifier: normalizedEmail,
         token: verificationToken,
@@ -161,7 +162,6 @@ export async function POST(request: NextRequest) {
 
     // Send verification email
     try {
-      const { sendVerificationEmail } = require('@/lib/email');
       await sendVerificationEmail(normalizedEmail, verificationToken, user.name || 'User');
       console.log('Verification email sent successfully');
     } catch (emailError) {

@@ -248,7 +248,7 @@ export default function Page() {
                         </h1>
 
                         <p className="text-gray-400 mb-2 text-sm sm:text-base">
-                            We've sent a verification link to:
+                            We ve sent a verification link to:
                         </p>
                         
                         <p className="text-white font-medium mb-8 text-sm sm:text-base break-all px-4">
