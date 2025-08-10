@@ -367,328 +367,362 @@ const createEmailTemplate = (content: string, title: string = '', hasLogo: boole
 
 // Email verification template
 export async function sendVerificationEmail(
-  email: string,
-  token: string,
-  userName: string
-) {
-  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-  const verificationUrl = `${baseUrl}/api/auth/verify-email?token=${token}&email=${encodeURIComponent(email)}`;
-  const appName = process.env.APP_NAME || 'Hawiyat';
-  
-  const logoAttachment = getLogoAttachment();
-  const hasLogo = logoAttachment !== null;
-
-  const content = `
-    <div class="email-header">
-      <div class="logo">{{LOGO_ELEMENT}}</div>
-      <div class="logo-subtitle">Verify your email address</div>
-    </div>
+    email: string,
+    token: string,
+    userName: string
+  ) {
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const verificationUrl = `${baseUrl}/api/auth/verify-email?token=${token}&email=${encodeURIComponent(email)}`;
+    const appName = process.env.APP_NAME || 'Hawiyat';
     
-    <div class="email-content">
-      <h1 class="content-title">Verify your email address</h1>
-      <p class="content-subtitle">Hi ${userName}, welcome to ${appName}!</p>
-      
-      <p class="content-text">
-        To complete your account setup and ensure the security of your account, 
-        please verify your email address by clicking the button below.
-      </p>
-      
-      <div class="button-container">
-        <a href="${verificationUrl}" class="button-primary">Verify Email Address</a>
+    const logoAttachment = getLogoAttachment();
+    const hasLogo = logoAttachment !== null;
+  
+    const content = `
+      <div class="email-header">
+        <div class="logo">{{LOGO_ELEMENT}}</div>
+        <div class="logo-subtitle">Verify your email address</div>
       </div>
       
-      <p class="content-text-secondary">
-        Or copy and paste this URL into your browser:
-      </p>
-      
-      <div class="code-block">${verificationUrl}</div>
-      
-      <hr class="divider">
-      
-      <p class="content-text-secondary">
-        This verification link will expire in 24 hours. If you didn't create an account 
-        with ${appName}, you can safely ignore this email.
-      </p>
-    </div>
-    
-    <div class="email-footer">
-      <p class="footer-text">
-        This email was sent to <span class="inline-code">${email}</span>
-      </p>
-      <p class="footer-text">
-        © ${new Date().getFullYear()} ${appName}. All rights reserved.
-      </p>
-    </div>
-  `;
-
-  const htmlContent = createEmailTemplate(content, `Verify your email - ${appName}`, hasLogo);
-  
-  const textContent = `
-${appName} - Verify your email address
-
-Hi ${userName},
-
-Welcome to ${appName}! To complete your account setup, please verify your email address by visiting:
-
-${verificationUrl}
-
-This verification link will expire in 24 hours.
-
-If you didn't create an account with ${appName}, you can safely ignore this email.
-
-© ${new Date().getFullYear()} ${appName}
-  `.trim();
-
-  const mailOptions: any = {
-    from: `"${appName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-    to: email,
-    subject: `Verify your email address - ${appName}`,
-    html: htmlContent,
-    text: textContent,
-  };
-  
-  // Add logo attachment if available
-  if (logoAttachment) {
-    mailOptions.attachments = [logoAttachment];
-  }
-
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Verification email sent:', info.messageId);
-    return info;
-  } catch (error) {
-    console.error('Error sending verification email:', error);
-    throw error;
-  }
-}
-
-// Welcome email template
-export async function sendWelcomeEmail(email: string, userName: string) {
-  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-  const appName = process.env.APP_NAME || 'Hawiyat';
-  
-  const logoAttachment = getLogoAttachment();
-  const hasLogo = logoAttachment !== null;
-
-  const content = `
-    <div class="email-header">
-      <div class="logo">{{LOGO_ELEMENT}}</div>
-      <div class="logo-subtitle">Welcome aboard!</div>
-    </div>
-    
-    <div class="email-content">
-      <h1 class="content-title">You're all set, ${userName}!</h1>
-      <p class="content-subtitle">Your account has been successfully verified.</p>
-      
-      <p class="content-text">
-        Welcome to ${appName}! We're excited to have you on board. 
-        Your account is now active and ready to use.
-      </p>
-      
-      <div class="button-container">
-        <a href="${baseUrl}/dashboard" class="button-primary">Get Started</a>
-        <a href="${baseUrl}/auth/signin" class="button-secondary">Sign In</a>
-      </div>
-      
-      <hr class="divider">
-      
-      <p class="content-text">Here's what you can do now:</p>
-      
-      <div class="list">
-        <div class="list-item">
-          <div class="list-item-bullet"></div>
-          <span>Access your personalized dashboard</span>
+      <div class="email-content">
+        <h1 class="content-title">Verify your email address</h1>
+        <p class="content-subtitle">Hi ${userName}, welcome to ${appName}!</p>
+        
+        <p class="content-text">
+          To complete your account setup and ensure the security of your account, 
+          please verify your email address by clicking the button below.
+        </p>
+        
+        <div class="button-container">
+          <a href="${verificationUrl}" class="button-primary">Verify Email Address</a>
         </div>
-        <div class="list-item">
-          <div class="list-item-bullet"></div>
-          <span>Explore all available features</span>
-        </div>
-        <div class="list-item">
-          <div class="list-item-bullet"></div>
-          <span>Customize your account settings</span>
-        </div>
-        <div class="list-item">
-          <div class="list-item-bullet"></div>
-          <span>Connect with our community</span>
-        </div>
+        
+        <p class="content-text-secondary">
+          Or copy and paste this URL into your browser:
+        </p>
+        
+        <div class="code-block">${verificationUrl}</div>
+        
+        <hr class="divider">
+        
+        <p class="content-text-secondary">
+          This verification link will expire in 24 hours. If you didn't create an account 
+          with ${appName}, you can safely ignore this email.
+        </p>
       </div>
       
-      <hr class="divider">
-      
-      <p class="content-text-secondary">
-        Need help getting started? Check out our documentation or reach out to our support team.
-      </p>
-    </div>
+      <div class="email-footer">
+        <p class="footer-text">
+          This email was sent to <span class="inline-code">${email}</span>
+        </p>
+        <p class="footer-text">
+          © ${new Date().getFullYear()} ${appName}. All rights reserved.
+        </p>
+      </div>
+    `;
+  
+    const htmlContent = createEmailTemplate(content, `Verify your email - ${appName}`, hasLogo);
     
-    <div class="email-footer">
-      <p class="footer-text">
-        This email was sent to <span class="inline-code">${email}</span>
-      </p>
-      <div class="footer-links">
-        <a href="${baseUrl}/help" class="footer-link">Help Center</a>
-        <a href="${baseUrl}/contact" class="footer-link">Contact Support</a>
-        <a href="${baseUrl}/unsubscribe" class="footer-link">Unsubscribe</a>
-      </div>
-      <p class="footer-text">
-        © ${new Date().getFullYear()} ${appName}. All rights reserved.
-      </p>
-    </div>
-  `;
-
-  const htmlContent = createEmailTemplate(content, `Welcome to ${appName}!`, hasLogo);
+    const textContent = `
+  ${appName} - Verify your email address
   
-  const textContent = `
-${appName} - Welcome aboard!
-
-Hi ${userName},
-
-You're all set! Your account has been successfully verified and you're now ready to use ${appName}.
-
-Get started: ${baseUrl}/dashboard
-Sign in: ${baseUrl}/auth/signin
-
-Here's what you can do now:
-• Access your personalized dashboard
-• Explore all available features  
-• Customize your account settings
-• Connect with our community
-
-Need help? Visit ${baseUrl}/help or contact our support team.
-
-© ${new Date().getFullYear()} ${appName}
-  `.trim();
-
-  const mailOptions: any = {
-    from: `"${appName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-    to: email,
-    subject: `Welcome to ${appName}!`,
-    html: htmlContent,
-    text: textContent,
-  };
+  Hi ${userName},
   
-  // Add logo attachment if available
-  if (logoAttachment) {
-    mailOptions.attachments = [logoAttachment];
-  }
-
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Welcome email sent:', info.messageId);
-    return info;
-  } catch (error) {
-    console.error('Error sending welcome email:', error);
-    throw error;
-  }
-}
-
-// Password reset template
-export async function sendPasswordResetEmail(
-  email: string,
-  token: string,
-  userName: string
-) {
-  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
-  const resetUrl = `${baseUrl}/auth/reset-password?token=${token}&email=${encodeURIComponent(email)}`;
-  const appName = process.env.APP_NAME || 'Hawiyat';
+  Welcome to ${appName}! To complete your account setup, please verify your email address by visiting:
   
-  const logoAttachment = getLogoAttachment();
-  const hasLogo = logoAttachment !== null;
-
-  const content = `
-    <div class="email-header">
-      <div class="logo">{{LOGO_ELEMENT}}</div>
-      <div class="logo-subtitle">Reset your password</div>
-    </div>
+  ${verificationUrl}
+  
+  This verification link will expire in 24 hours.
+  
+  If you didn't create an account with ${appName}, you can safely ignore this email.
+  
+  © ${new Date().getFullYear()} ${appName}
+    `.trim();
+  
+    interface MailOptions {
+      from: string;
+      to: string;
+      subject: string;
+      html: string;
+      text: string;
+      attachments?: Array<{
+        filename: string;
+        content?: Buffer;
+        path?: string;
+        cid?: string;
+      }>;
+    }
+  
+    const mailOptions: MailOptions = {
+      from: `"${appName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      to: email,
+      subject: `Verify your email address - ${appName}`,
+      html: htmlContent,
+      text: textContent,
+    };
     
-    <div class="email-content">
-      <h1 class="content-title">Reset your password</h1>
-      <p class="content-subtitle">Hi ${userName},</p>
-      
-      <p class="content-text">
-        We received a request to reset your password for your ${appName} account. 
-        Click the button below to create a new password.
-      </p>
-      
-      <div class="button-container">
-        <a href="${resetUrl}" class="button-primary">Reset Password</a>
-      </div>
-      
-      <p class="content-text-secondary">
-        Or copy and paste this URL into your browser:
-      </p>
-      
-      <div class="code-block">${resetUrl}</div>
-      
-      <hr class="divider">
-      
-      <p class="content-text-secondary">
-        This password reset link will expire in 1 hour. If you didn't request a password reset, 
-        you can safely ignore this email - your password won't be changed.
-      </p>
-      
-      <p class="content-text-secondary">
-        For security reasons, if you continue to receive these emails, 
-        please contact our support team immediately.
-      </p>
-    </div>
+    // Add logo attachment if available
+    if (logoAttachment) {
+      mailOptions.attachments = [logoAttachment];
+    }
+  
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Verification email sent:', info.messageId);
+      return info;
+    } catch (error) {
+      console.error('Error sending verification email:', error);
+      throw error;
+    }
+  }
+  
+  // Welcome email template
+  export async function sendWelcomeEmail(email: string, userName: string) {
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const appName = process.env.APP_NAME || 'Hawiyat';
     
-    <div class="email-footer">
-      <p class="footer-text">
-        This email was sent to <span class="inline-code">${email}</span>
-      </p>
-      <div class="footer-links">
-        <a href="${baseUrl}/help" class="footer-link">Help Center</a>
-        <a href="${baseUrl}/contact" class="footer-link">Contact Support</a>
+    const logoAttachment = getLogoAttachment();
+    const hasLogo = logoAttachment !== null;
+  
+    const content = `
+      <div class="email-header">
+        <div class="logo">{{LOGO_ELEMENT}}</div>
+        <div class="logo-subtitle">Welcome aboard!</div>
       </div>
-      <p class="footer-text">
-        © ${new Date().getFullYear()} ${appName}. All rights reserved.
-      </p>
-    </div>
-  `;
-
-  const htmlContent = createEmailTemplate(content, `Reset your password - ${appName}`, hasLogo);
+      
+      <div class="email-content">
+        <h1 class="content-title">You're all set, ${userName}!</h1>
+        <p class="content-subtitle">Your account has been successfully verified.</p>
+        
+        <p class="content-text">
+          Welcome to ${appName}! We're excited to have you on board. 
+          Your account is now active and ready to use.
+        </p>
+        
+        <div class="button-container">
+          <a href="${baseUrl}/dashboard" class="button-primary">Get Started</a>
+          <a href="${baseUrl}/auth/signin" class="button-secondary">Sign In</a>
+        </div>
+        
+        <hr class="divider">
+        
+        <p class="content-text">Here's what you can do now:</p>
+        
+        <div class="list">
+          <div class="list-item">
+            <div class="list-item-bullet"></div>
+            <span>Access your personalized dashboard</span>
+          </div>
+          <div class="list-item">
+            <div class="list-item-bullet"></div>
+            <span>Explore all available features</span>
+          </div>
+          <div class="list-item">
+            <div class="list-item-bullet"></div>
+            <span>Customize your account settings</span>
+          </div>
+          <div class="list-item">
+            <div class="list-item-bullet"></div>
+            <span>Connect with our community</span>
+          </div>
+        </div>
+        
+        <hr class="divider">
+        
+        <p class="content-text-secondary">
+          Need help getting started? Check out our documentation or reach out to our support team.
+        </p>
+      </div>
+      
+      <div class="email-footer">
+        <p class="footer-text">
+          This email was sent to <span class="inline-code">${email}</span>
+        </p>
+        <div class="footer-links">
+          <a href="${baseUrl}/help" class="footer-link">Help Center</a>
+          <a href="${baseUrl}/contact" class="footer-link">Contact Support</a>
+          <a href="${baseUrl}/unsubscribe" class="footer-link">Unsubscribe</a>
+        </div>
+        <p class="footer-text">
+          © ${new Date().getFullYear()} ${appName}. All rights reserved.
+        </p>
+      </div>
+    `;
   
-  const textContent = `
-${appName} - Reset your password
-
-Hi ${userName},
-
-We received a request to reset your password for your ${appName} account.
-
-Reset your password: ${resetUrl}
-
-This password reset link will expire in 1 hour. If you didn't request a password reset, you can safely ignore this email.
-
-© ${new Date().getFullYear()} ${appName}
-  `.trim();
-
-  const mailOptions: any = {
-    from: `"${appName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-    to: email,
-    subject: `Reset your password - ${appName}`,
-    html: htmlContent,
-    text: textContent,
-  };
+    const htmlContent = createEmailTemplate(content, `Welcome to ${appName}!`, hasLogo);
+    
+    const textContent = `
+  ${appName} - Welcome aboard!
   
-  // Add logo attachment if available
-  if (logoAttachment) {
-    mailOptions.attachments = [logoAttachment];
+  Hi ${userName},
+  
+  You're all set! Your account has been successfully verified and you're now ready to use ${appName}.
+  
+  Get started: ${baseUrl}/dashboard
+  Sign in: ${baseUrl}/auth/signin
+  
+  Here's what you can do now:
+  • Access your personalized dashboard
+  • Explore all available features  
+  • Customize your account settings
+  • Connect with our community
+  
+  Need help? Visit ${baseUrl}/help or contact our support team.
+  
+  © ${new Date().getFullYear()} ${appName}
+    `.trim();
+  
+    interface MailOptions {
+      from: string;
+      to: string;
+      subject: string;
+      html: string;
+      text: string;
+      attachments?: Array<{
+        filename: string;
+        content?: Buffer;
+        path?: string;
+        cid?: string;
+      }>;
+    }
+  
+    const mailOptions: MailOptions = {
+      from: `"${appName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      to: email,
+      subject: `Welcome to ${appName}!`,
+      html: htmlContent,
+      text: textContent,
+    };
+    
+    // Add logo attachment if available
+    if (logoAttachment) {
+      mailOptions.attachments = [logoAttachment];
+    }
+  
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Welcome email sent:', info.messageId);
+      return info;
+    } catch (error) {
+      console.error('Error sending welcome email:', error);
+      throw error;
+    }
   }
-
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Password reset email sent:', info.messageId);
-    return info;
-  } catch (error) {
-    console.error('Error sending password reset email:', error);
-    throw error;
+  
+  // Password reset template
+  export async function sendPasswordResetEmail(
+    email: string,
+    token: string,
+    userName: string
+  ) {
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const resetUrl = `${baseUrl}/auth/reset-password?token=${token}&email=${encodeURIComponent(email)}`;
+    const appName = process.env.APP_NAME || 'Hawiyat';
+    
+    const logoAttachment = getLogoAttachment();
+    const hasLogo = logoAttachment !== null;
+  
+    const content = `
+      <div class="email-header">
+        <div class="logo">{{LOGO_ELEMENT}}</div>
+        <div class="logo-subtitle">Reset your password</div>
+      </div>
+      
+      <div class="email-content">
+        <h1 class="content-title">Reset your password</h1>
+        <p class="content-subtitle">Hi ${userName},</p>
+        
+        <p class="content-text">
+          We received a request to reset your password for your ${appName} account. 
+          Click the button below to create a new password.
+        </p>
+        
+        <div class="button-container">
+          <a href="${resetUrl}" class="button-primary">Reset Password</a>
+        </div>
+        
+        <p class="content-text-secondary">
+          Or copy and paste this URL into your browser:
+        </p>
+        
+        <div class="code-block">${resetUrl}</div>
+        
+        <hr class="divider">
+        
+        <p class="content-text-secondary">
+          This password reset link will expire in 1 hour. If you didn't request a password reset, 
+          you can safely ignore this email - your password won't be changed.
+        </p>
+        
+        <p class="content-text-secondary">
+          For security reasons, if you continue to receive these emails, 
+          please contact our support team immediately.
+        </p>
+      </div>
+      
+      <div class="email-footer">
+        <p class="footer-text">
+          This email was sent to <span class="inline-code">${email}</span>
+        </p>
+        <div class="footer-links">
+          <a href="${baseUrl}/help" class="footer-link">Help Center</a>
+          <a href="${baseUrl}/contact" class="footer-link">Contact Support</a>
+        </div>
+        <p class="footer-text">
+          © ${new Date().getFullYear()} ${appName}. All rights reserved.
+        </p>
+      </div>
+    `;
+  
+    const htmlContent = createEmailTemplate(content, `Reset your password - ${appName}`, hasLogo);
+    
+    const textContent = `
+  ${appName} - Reset your password
+  
+  Hi ${userName},
+  
+  We received a request to reset your password for your ${appName} account.
+  
+  Reset your password: ${resetUrl}
+  
+  This password reset link will expire in 1 hour. If you didn't request a password reset, you can safely ignore this email.
+  
+  © ${new Date().getFullYear()} ${appName}
+    `.trim();
+  
+    interface MailOptions {
+      from: string;
+      to: string;
+      subject: string;
+      html: string;
+      text: string;
+      attachments?: Array<{
+        filename: string;
+        content?: Buffer;
+        path?: string;
+        cid?: string;
+      }>;
+    }
+  
+    const mailOptions: MailOptions = {
+      from: `"${appName}" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      to: email,
+      subject: `Reset your password - ${appName}`,
+      html: htmlContent,
+      text: textContent,
+    };
+    
+    // Add logo attachment if available
+    if (logoAttachment) {
+      mailOptions.attachments = [logoAttachment];
+    }
+  
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Password reset email sent:', info.messageId);
+      return info;
+    } catch (error) {
+      console.error('Error sending password reset email:', error);
+      throw error;
+    }
   }
-}
-
-
-
-
-
-
-
-
