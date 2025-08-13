@@ -9,12 +9,12 @@ if (!PAYPAL_CLIENT_ID || !PAYPAL_CLIENT_SECRET) {
   throw new Error('Missing PayPal credentials');
 }
 
-const baseUrl =
+export const baseUrl =
   PAYPAL_MODE === 'live'
     ? 'https://api-m.paypal.com'
     : 'https://api-m.sandbox.paypal.com';
 
-async function getAccessToken(): Promise<string> {
+export async function getAccessToken(): Promise<string> {
   const res = await fetch(`${baseUrl}/v1/oauth2/token`, {
     method: 'POST',
     headers: {

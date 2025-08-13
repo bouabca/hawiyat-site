@@ -24,7 +24,7 @@ export async function POST(req: Request) {
       total,
       cartItems,
       currency: 'USD',
-      returnUrl: `${process.env.BASE_URL}/pay/success`,
+      returnUrl: `${process.env.BASE_URL}/pay/checkout`,
       cancelUrl: `${process.env.BASE_URL}/pay/cancel`,
     });
 

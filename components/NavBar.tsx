@@ -122,18 +122,15 @@ function CartSidebar() {
               <span className="text-cyan-300">{totalPrice.toLocaleString()} DZD</span>
             </div>
             <div className="space-y-2">
-              {/* <Button
+              <Button
                 className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
                 onClick={() => {
-                  alert('Proceeding to checkout...')
+                  window.location.href = "/pay/checkout"
                 }}
               >
                 Proceed to Checkout
-              </Button> */}
-              <PayPalPayButton
-                cart={cartItems}
-                total={totalPrice.toFixed(2).toString()}
-              />
+              </Button>
+              
               <Button
                 variant="outline"
                 className="w-full border-[#333] bg-transparent hover:bg-[#1a1a1a] text-white"
