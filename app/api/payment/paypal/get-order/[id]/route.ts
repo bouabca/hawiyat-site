@@ -1,14 +1,14 @@
 import { baseUrl, getAccessToken } from "@/lib/paypal";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
 
-    const { id } = params;
+    const id  = (await params).id;
 
     const token = await getAccessToken();
     const headers =
     {
-        "conetent-type": "application/json",
+        "content-type": "application/json",
         "authorization": "Bearer " + token
     }
     

@@ -3,12 +3,11 @@
 import { CheckCircle, ArrowRight } from "lucide-react";
 import Image from 'next/image';
 import Link from "next/link";
-import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
 function VerificationSuccessContent() {
-    const searchParams = useSearchParams();
-    const verified = searchParams.get('verified');
+   
+    
 
     return (
         <div className="min-h-screen w-full flex justify-center items-center px-4 sm:px-6 lg:px-8 py-8">

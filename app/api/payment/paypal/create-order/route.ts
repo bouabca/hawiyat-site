@@ -28,10 +28,10 @@ export async function POST(req: Request) {
       cancelUrl: `${process.env.BASE_URL}/pay/cancel`,
     });
 
-    const approveLink = order.links?.find((l: any) => l.rel === 'approve')?.href;
+    const approveLink = order.links?.find((l : {rel: string, href: string}) => l.rel === 'approve')?.href;
 
     return NextResponse.json({ ok: true, approveLink, orderId: order.id });
-  } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err.message }, { status: 400 });
+  } catch (err) {
+    return NextResponse.json({ ok: false, error: (err as {message: string}).message }, { status: 400 });
   }
 }

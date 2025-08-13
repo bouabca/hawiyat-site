@@ -1,10 +1,10 @@
 "use client"
 
 import { BitbucketIcon } from "@/components/icons/BitBucket";
-import { ArrowRight, Github, Gitlab } from "lucide-react";
+import { ArrowRight, Github } from "lucide-react";
 import { signIn, getSession } from "next-auth/react";
 import Image from 'next/image';
-import Link from "next/link";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
