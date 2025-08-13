@@ -85,7 +85,7 @@ export default function Page() {
             if (!data.ok) throw new Error(data.error);
 
             window.location.href = data.approveLink;
-        } catch (e: any) {
+        } catch  {
             setLoading(false);
         }
     }
@@ -104,7 +104,7 @@ export default function Page() {
             if (!data.ok) throw new Error(data.error);
             clearCart();
             window.location.href = "/pay/success";
-        } catch (e: any) {
+        } catch {
             setLoading(false);
         }
     }
@@ -156,7 +156,7 @@ export default function Page() {
                                         {
                                             cartItems.map((item, index) => {
 
-                                                let multiplier = item.selectedTier.billingCycle === "MONTHLY" ? 1 : item.selectedTier.billingCycle === "SEMI_ANNUAL" ? 6 : 12;
+                                               
                                                 return (
                                                     <div key={index} className="flex justify-between w-full gap-x-4
                                             bg-linear-to-b from-[#fff]/8 to-[#fff]/0
