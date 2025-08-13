@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import PayPalPayButton from "@/components/PayPalButton";
 
 interface NavBarProps {
   session: Session | null;
@@ -38,9 +39,8 @@ function CartSidebar() {
         />
       )}
 
-      <div className={`fixed top-0 right-0 h-full w-96 bg-[#111] border-l border-[#333] transform transition-transform duration-300 ease-in-out z-50 flex flex-col ${
-        isCartOpen ? "translate-x-0" : "translate-x-full"
-      }`}>
+      <div className={`fixed top-0 right-0 h-full w-96 bg-[#111] border-l border-[#333] transform transition-transform duration-300 ease-in-out z-50 flex flex-col ${isCartOpen ? "translate-x-0" : "translate-x-full"
+        }`}>
         <div className="p-6 border-b border-[#333] flex items-center justify-between">
           <h2 className="text-xl font-semibold text-white">Shopping Cart</h2>
           <Button
@@ -125,11 +125,12 @@ function CartSidebar() {
               <Button
                 className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
                 onClick={() => {
-                  alert('Proceeding to checkout...')
+                  window.location.href = "/pay/checkout"
                 }}
               >
                 Proceed to Checkout
               </Button>
+              
               <Button
                 variant="outline"
                 className="w-full border-[#333] bg-transparent hover:bg-[#1a1a1a] text-white"
@@ -146,7 +147,7 @@ function CartSidebar() {
 }
 
 function CartButton() {
-  const { totalItems, isCartOpen, setIsCartOpen } = useCart();
+  const { totalItems, isCartOpen, setIsCartOpen, totalPrice, cartItems } = useCart();
 
   return (
     <button
@@ -240,9 +241,8 @@ function UserDropdown({ session }: { session: Session }) {
           <span className="text-white font-medium text-sm max-w-24 truncate">
             {session.user?.name || session.user?.email}
           </span>
-          <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${
-            isOpen ? 'rotate-180' : ''
-          }`} />
+          <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+            }`} />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 
                         opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
@@ -357,9 +357,8 @@ function MobileUserMenu({ session }: { session: Session }) {
             </div>
           </div>
         </div>
-        <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${
-          isExpanded ? 'rotate-180' : ''
-        }`} />
+        <ChevronDown className={`w-4 h-4 text-white/70 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''
+          }`} />
       </button>
 
       {isExpanded && (
@@ -456,13 +455,13 @@ export default function NavBar({ session }: NavBarProps) {
   return (
     <>
       <CartSidebar />
-      
+
       <nav className="absolute top-0 left-0 w-full z-30">
         <div className="flex justify-between lg:justify-around items-center h-14 lg:h-16
              bg-white/5 backdrop-blur-lg border-b border-white/10
             px-4 sm:px-6 lg:px-8">
           {/* Logo block - Responsive */}
-          <Link 
+          <Link
             href="/"
             className="font-bold text-lg lg:text-xl flex items-center gap-2 font-poppins z-30 relative
                        hover:scale-105 transition-transform duration-200"
@@ -474,13 +473,13 @@ export default function NavBar({ session }: NavBarProps) {
               height={32}
               alt="Hawiyat Logo"
               className="w-7 h-7 lg:w-8 lg:h-8"
-            />                    
+            />
             <span className="text-white">Hawiyat</span>
           </Link>
 
           {/* Desktop menu - Hidden on mobile */}
           <div className="hidden lg:flex justify-around items-center gap-x-6 xl:gap-x-8 text-white">
-            <Link 
+            <Link
               href="/Products"
               className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm
                          relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 
@@ -489,7 +488,7 @@ export default function NavBar({ session }: NavBarProps) {
             >
               Products
             </Link>
-            <Link 
+            <Link
               href="/templates"
               className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm
                          relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 
@@ -498,7 +497,7 @@ export default function NavBar({ session }: NavBarProps) {
             >
               Templates
             </Link>
-            <Link 
+            <Link
               href="/#Features"
               className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm
                          relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 
@@ -507,7 +506,7 @@ export default function NavBar({ session }: NavBarProps) {
             >
               Features
             </Link>
-            <Link 
+            <Link
               href="/#feedback"
               className="hover:text-[#2BFFFF] transition-colors duration-200 font-medium text-sm
                          relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 
@@ -521,11 +520,11 @@ export default function NavBar({ session }: NavBarProps) {
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-4">
             <CartButton />
-            
+
             {session ? (
               <UserDropdown session={session} />
             ) : (
-              <Link 
+              <Link
                 href="/auth"
                 className="bg-gradient-to-r from-[#2BFFFF] to-[#1CDDDD] hover:from-[#1CDDDD] hover:to-[#0ABBBB]
                     py-2 px-4 rounded-2xl text-black font-semibold
@@ -557,7 +556,7 @@ export default function NavBar({ session }: NavBarProps) {
 
         {/* Mobile menu overlay */}
         {isMenuOpen && (
-          <div 
+          <div
             className="lg:hidden fixed inset-0 bg-black/50 z-30 backdrop-blur-sm"
             onClick={closeMenu}
           />
@@ -573,10 +572,10 @@ export default function NavBar({ session }: NavBarProps) {
           <div className="flex flex-col pt-20 pb-6 px-6 h-full">
             {/* User section for mobile */}
             {session && <MobileUserMenu session={session} />}
-            
+
             {/* Mobile navigation links */}
             <div className="flex flex-col space-y-4 mb-6 flex-1">
-              <Link 
+              <Link
                 href="/Products"
                 className="text-white hover:text-[#2BFFFF] transition-colors duration-200
                     font-medium text-base py-2 border-b border-white/10
@@ -585,7 +584,7 @@ export default function NavBar({ session }: NavBarProps) {
               >
                 Products
               </Link>
-              <Link 
+              <Link
                 href="/templates"
                 className="text-white hover:text-[#2BFFFF] transition-colors duration-200
                     font-medium text-base py-2 border-b border-white/10
@@ -594,7 +593,7 @@ export default function NavBar({ session }: NavBarProps) {
               >
                 Templates
               </Link>
-              <Link 
+              <Link
                 href="/#Features"
                 className="text-white hover:text-[#2BFFFF] transition-colors duration-200
                     font-medium text-base py-2 border-b border-white/10
@@ -603,7 +602,7 @@ export default function NavBar({ session }: NavBarProps) {
               >
                 Features
               </Link>
-              <Link 
+              <Link
                 href="/#feedback"
                 className="text-white hover:text-[#2BFFFF] transition-colors duration-200
                     font-medium text-base py-2 border-b border-white/10
