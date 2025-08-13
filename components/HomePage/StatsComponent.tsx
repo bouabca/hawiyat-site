@@ -46,7 +46,7 @@ export default function StatsComponent({ isVisible, scrollY }: StatsComponentPro
         observer.unobserve(statsRef.current)
       }
     }
-  }, [])
+  })
 
   const stats = [
     {

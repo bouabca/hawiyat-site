@@ -52,8 +52,8 @@ export default function PayPalPayButton({ cart, total }: { cart: CartItem[], tot
       const data = await res.json();
       if (!data.ok) throw new Error(data.error);
       window.location.href = data.approveLink;
-    } catch (e: any) {
-      alert(e.message + " paypal-button");
+    } catch (e) {
+      alert((e as {message: string}).message + " paypal-button");
       setLoading(false);
     }
   }

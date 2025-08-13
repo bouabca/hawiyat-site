@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import PayPalPayButton from "@/components/PayPalButton";
+
 
 interface NavBarProps {
   session: Session | null;
@@ -147,7 +147,7 @@ function CartSidebar() {
 }
 
 function CartButton() {
-  const { totalItems, isCartOpen, setIsCartOpen, totalPrice, cartItems } = useCart();
+  const { totalItems, isCartOpen, setIsCartOpen } = useCart();
 
   return (
     <button

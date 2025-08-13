@@ -16,7 +16,7 @@ export default function Page() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!email.trim()) {
             setMessage('Please enter your email address');
             setIsError(true);
@@ -47,7 +47,7 @@ export default function Page() {
                 setMessage(data.error || 'Something went wrong');
                 setIsError(true);
             }
-        } catch (error) {
+        } catch {
             setMessage('Network error. Please try again.');
             setIsError(true);
         } finally {
@@ -76,7 +76,7 @@ export default function Page() {
                             alt="The center light for the waitlist"
                             className="w-32 h-40 xs:w-36 xs:h-44 sm:w-40 sm:h-48 md:w-48 md:h-56 lg:w-56 lg:h-64 xl:w-60 xl:h-72 2xl:w-64 2xl:h-80"
                         />
-                        
+
                         <Image
                             src="/waitlist-lights/right-light.svg"
                             width={light_width}
@@ -127,11 +127,10 @@ export default function Page() {
 
                             {/* Message display */}
                             {message && (
-                                <div className={`text-sm sm:text-base text-center px-4 py-2 rounded-lg ${
-                                    isError 
-                                        ? 'text-red-400 bg-red-900/20 border border-red-800/30' 
+                                <div className={`text-sm sm:text-base text-center px-4 py-2 rounded-lg ${isError
+                                        ? 'text-red-400 bg-red-900/20 border border-red-800/30'
                                         : 'text-green-400 bg-green-900/20 border border-green-800/30'
-                                }`}>
+                                    }`}>
                                     {message}
                                     {position && !isError && (
                                         <div className="mt-1 text-cyan-400">

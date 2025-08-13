@@ -95,9 +95,9 @@ export async function createOrder({
 }
 
 export async function captureOrder(orderId: string) {
-  
-  try{
-    
+
+  try {
+
     const token = await getAccessToken();
     const res = await fetch(`${baseUrl}/v2/checkout/orders/${orderId}/capture`, {
       method: 'POST',
@@ -110,9 +110,8 @@ export async function captureOrder(orderId: string) {
     if (!res.ok) throw new Error(JSON.stringify(data));
     return data;
   }
-  catch(err: any)
-  {
+  catch (err) {
     console.log("Error at the creator-order");
-    return err.message;
+    return (err as { message: string }).message;
   }
 }

@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
     const capture = await captureOrder(orderId);
     return NextResponse.json({ ok: true, capture });
-  } catch (err: any) {
-    return NextResponse.json({ ok: false, error: err.message }, { status: 400 });
+  } catch (err) {
+    return NextResponse.json({ ok: false, error: (err as {message: string}).message }, { status: 400 });
   }
 }
