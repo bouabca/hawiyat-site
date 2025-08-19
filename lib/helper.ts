@@ -1,5 +1,5 @@
 import { addMonths } from "date-fns";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/prisma/prismaClient";
 
 // ===========================================
 // Type Definitions

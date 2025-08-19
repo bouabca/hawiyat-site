@@ -1,6 +1,6 @@
 // app/api/auth/verify-email/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma/prismaClient';
 import crypto from 'crypto';
 import { sendVerificationEmail } from '@/lib/email';
 

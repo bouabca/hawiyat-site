@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
-import { prisma } from './prisma'
+import { prisma } from './prisma/prismaClient'
 import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers/oauth"
 
 

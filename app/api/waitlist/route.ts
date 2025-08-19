@@ -1,7 +1,7 @@
 // app/api/waitlist/route.ts
 import { z } from 'zod';
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/prisma/prismaClient';
 
 const WaitlistSchema = z.object({
   email: z
