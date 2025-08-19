@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import { prisma } from '@/lib/prisma/prismaClient';
-import { sendVerificationEmail } from '@/lib/email';
+import { sendVerificationEmail } from '@/lib/third_partty/email';
 
 export async function POST(request: NextRequest) {
   try {
