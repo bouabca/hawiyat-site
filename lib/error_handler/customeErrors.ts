@@ -4,7 +4,7 @@ export class CustomError extends Error {
       public message: string,
       public statusCode: number,
       public errorCode?: string,
-      public details?: any
+      public details?: Record<string, unknown>
     ) {
       super(message);
       this.name = this.constructor.name;
@@ -13,7 +13,7 @@ export class CustomError extends Error {
   }
   
   export class ValidationError extends CustomError {
-    constructor(message: string, details?: any) {
+    constructor(message: string, details?: Record<string, unknown>) {
       super(message, 400, "VALIDATION_ERROR", details);
     }
   }
@@ -31,7 +31,7 @@ export class CustomError extends Error {
   }
   
   export class DatabaseError extends CustomError {
-    constructor(message: string, details?: any) {
+    constructor(message: string, details?: Record<string, unknown>) {
       super(message, 500, "DATABASE_ERROR", details);
     }
   }
@@ -55,7 +55,7 @@ export class CustomError extends Error {
   // New error classes
   
   export class PaymentError extends CustomError {
-    constructor(message: string, details?: any) {
+    constructor(message: string, details?: Record<string, unknown>) {
       super(message, 402, "PAYMENT_ERROR", details);
     }
   }
@@ -67,12 +67,12 @@ export class CustomError extends Error {
   }
   
   export class ConflictError extends CustomError {
-    constructor(message: string, details?: any) {
+    constructor(message: string, details?: Record<string, unknown>) {
       super(message, 409, "CONFLICT", details);
     }
   }
   export class LimitExceededError extends CustomError {
-    constructor(message: string, details?: any) {
+    constructor(message: string, details?: Record<string, unknown>) {
       super(message, 429, "LIMIT_EXCEEDED", details);
     }
   }
@@ -91,13 +91,13 @@ export class CustomError extends Error {
   }
   
   export class SubscriptionError extends CustomError {
-    constructor(message: string, details?: any) {
+    constructor(message: string, details?: Record<string, unknown>) {
       super(message, 402, "SUBSCRIPTION_ERROR", details);
     }
   }
   
   export class DataIntegrityError extends CustomError {
-    constructor(message: string, details?: any) {
+    constructor(message: string, details?: Record<string, unknown>) {
       super(message, 422, "DATA_INTEGRITY_ERROR", details);
     }
   }
